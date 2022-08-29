@@ -1,0 +1,21 @@
+<%= render 'public/nav' %>
+<div class="container">
+    <h2>マイページ</h2>
+
+     <%= image_tag @user.get_profile_image("100x100") %>
+
+    <h5>名前</h5>
+    <p><%= @user.user_name %></p>
+
+    <h5>身長</h5>
+    <p><%= @user.height %> cm</p>
+
+
+    <h5>性別</h5>
+    <p><%= @user.sex %></p>
+
+    <h5>メールアドレス</h5>
+    <p><%= @user.email %></p>
+
+</div>
+

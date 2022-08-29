@@ -1,3 +1,5 @@
+<%= render 'public/nav' %>
+
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -19,8 +21,10 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "log in" %>
   </div>
 <% end %>
 
-<%= render "public/shared/links" %>
+<%#= render "public/shared/links" %>
+<p>ユーザー登録をお済みでない方はこちらから登録してください</p>
+<p><%= link_to "sign up", new_user_registration_path %></p>
