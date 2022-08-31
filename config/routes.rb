@@ -17,7 +17,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about'
-    resources :users, only:[:edit, :update]
+    resources :users, only: [:index, :edit, :update]
     get '/users/my_page' => 'users#show'
     get '/users/unsubscribe' => 'users#unsubscribe'
     patch '/users/withdraw' => 'users#withdraw'
@@ -32,9 +32,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   # 管理者側のルーティング設定
   namespace :admin do
     root to: 'homes#top'
-    # get '/about' => 'homes#about'
+    get '/about' => 'homes#about'
     resources :users, only:[:index, :edit, :update, :destroy]
-    resources :tag, only:[:index, :create]
+    resources :tags, only:[:index, :create]
+    resources :categories, only:[:index, :create, :edit, :update, :destroy]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

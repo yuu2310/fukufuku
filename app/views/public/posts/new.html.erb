@@ -1,0 +1,25 @@
+<div class="container">
+
+    <%= render 'public/nav' %>
+
+  <div class="row mt-5">
+    <div class="col-ms-2">
+      <h5>新規投稿</h5>
+    </div>
+  </div>
+    <%= form_with model: @post, url: posts_path, method: :post do |f| %>
+
+    <p><%= f.file_field :image, accept: "image/*" %></p>
+
+    <!--<p>tops</p>-->
+    <%#= f.collection_select :category_id, @categories, :id, :category_name, { prompt: "--選択してください--" }  %>
+    
+    <!--<p>bottoms</p>-->
+    <%#= f.collection_select :category_id, @categories, :id, :category_name, { prompt: "--選択してください--" }  %>
+
+    <p><%= f.text_area :post_content, size: "50x30" %></p>
+
+    <p><%= f.submit "投稿" %></p>
+    <% end %>
+
+</div>

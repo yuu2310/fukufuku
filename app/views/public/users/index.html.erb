@@ -1,0 +1,8 @@
+<%= render 'public/nav' %>
+
+<div class="container mt-5">
+  <h5>ユーザー一覧</h5>
+  <% @user.each do |user| %>
+  <%= user.user_name %>
+  <% end %>
+</div>

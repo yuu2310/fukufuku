@@ -2,9 +2,9 @@
 <div class="container">
     <h2>マイページ</h2>
 
-     <%= image_tag @user.get_profile_image("100x100") %>
+     <%= image_tag @user.get_profile_image("200x200") %>
 
-    <h5>名前</h5>
+    <h5>ユーザー名</h5>
     <p><%= @user.user_name %></p>
 
     <h5>身長</h5>
@@ -16,6 +16,8 @@
 
     <h5>メールアドレス</h5>
     <p><%= @user.email %></p>
+
+    <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
 
 </div>
 

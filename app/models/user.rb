@@ -3,6 +3,23 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  # フォローする側から中間テーブルへのアソシエーション
+  has_many :relationships, foreign_key: :followed_id
+  # フォローする側からフォローされたユーザを取得する
+  has_many :followeds, through: :relationships, source: :follower
+
+  # フォローされる側から中間テーブルへのアソシエーション
+  # フォローする側からのアソシエーションと重複してしまうためreverse_of_relationshipsと記述する
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :follower_id
+  # フォローされる側からフォローしているユーザを取得する
+  has_many :followers, through: :reverse_of_relationships, source: :followed
+
+  # あるユーザが引数で渡されたuserにフォローされているか調べるメソッド
+  def is_followed_by?(user)
+    reverse_of_relationships.find_by(following_id: user.id).present?
+  end
+  
 
   has_many :posts, dependent: :destroy
 

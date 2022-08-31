@@ -1,0 +1,21 @@
+<%= render 'admin/nav' %>
+<div class='container mt-5'>
+  <h5>カテゴリー新規作成</h5><br>
+  <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
+  <div class='from-group'>
+      <div class='from-content'>
+        <h5>カテゴリー名</h5>
+        <%= f.text_field :category_name %>
+        <%= f.submit '作成' %>
+      </div>
+  <% end %>
+  </div><br>
+
+  <h5>カテゴリー一覧</h5>
+  <% @categories.each do |category| %>
+  <p><%= category.category_name %></p>
+  <%= link_to "編集", edit_admin_category_path(category.id) %>
+  <%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
+  <% end %>
+</div>
+

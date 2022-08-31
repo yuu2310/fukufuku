@@ -1,0 +1,12 @@
+<%= render 'admin/nav' %>
+<div class="container mt-5">
+
+    <h5>カテゴリー編集</h5>
+
+    <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |f| %>
+    <%= f.text_field :category_name %>
+    <%= f.submit '更新' %>
+
+    <% end %>
+
+</div>

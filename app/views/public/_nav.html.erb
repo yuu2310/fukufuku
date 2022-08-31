@@ -8,20 +8,27 @@
         <% if user_signed_in? %>
          <ul class="navbar-nav ml-auto">
 
+            <li class="mr-2">
+              <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規投稿', new_post_path, class: 'nav-link text-dark'   %></button>
+            </li>
 
-             <li class="mr-3">
+            <li class="mr-2">
               <button class="btn btn-outline-secondary" type="button"><%= link_to 'マイページ', users_my_page_path, class: 'nav-link text-dark'  %></button>
             </li>
 
-            <li class="mr-3">
+            <li class="mr-2">
+              <button class="btn btn-outline-secondary" type="button"><%= link_to 'ユーザー一覧', users_path, class: 'nav-link text-dark'  %></button>
+            </li>
+
+            <li class="mr-2">
               <button class="btn btn-outline-secondary" type="button"><%= link_to  'いいねリスト', class: 'nav-link text-dark'   %></button>
             </li>
 
-            <li class="mr-3">
+            <li class="mr-2">
               <button class="btn btn-outline-secondary" type="button"><%= link_to '投稿一覧', class: 'nav-link text-dark'  %></button>
             </li>
 
-            <li class="mr-3">
+            <li class="mr-2">
               <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark'  %></button>
             </li>
 
@@ -34,19 +41,19 @@
               <!--  <button class="btn btn-outline-secondary" type="button"><%#= link_to 'About', class: 'nav-link text-dark'  %></button>-->
               <!--</li>-->
 
-              <li class="mr-3">
+              <li class="mr-2">
                 <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規登録',  new_user_registration_path, class: 'nav-link text-dark'  %></button>
               </li>
 
-              <li class="mr-3">
+              <li class="mr-2">
                 <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link text-dark'  %></button>
               </li>
 
-              <li class="mr-3">
-                <button class="btn btn-outline-secondary" type="button"><%= link_to  '投稿一覧', class: 'nav-link text-dark'  %></button>
+              <li class="mr-2">
+                <button class="btn btn-outline-secondary" type="button"><%= link_to  '投稿一覧',  posts_path, class: 'nav-link text-dark'  %></button>
               </li>
 
-              <li class="mr-3">
+              <li class="mr-2">
                 <button class="btn btn-outline-secondary" type="button"><%= link_to  '管理者側ログインへ', new_admin_session_path, class: 'nav-link text-dark'  %></button>
               </li>
 

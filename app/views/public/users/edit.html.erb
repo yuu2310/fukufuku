@@ -1,0 +1,45 @@
+<%= render 'public/nav' %>
+
+<div class="container">
+    <h3>プロフィール編集</h3>
+
+    <%= form_with model: @user, url: user_path(@user.id) do |f| %>
+
+     <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+     <!--file_fieldは画像を選択する-->
+
+     <%= image_tag @user.get_profile_image("100x100") %>
+     <!--image_tagは予め登録されている画像を表示する-->
+
+     <div class="field mb-4">
+     <%= f.label :user_name, "ユーザー名" %>&emsp;
+     <%= f.text_field :user_name %>
+     </div>
+
+     <div class="field mb-4">
+      <%= f.label :height, "身長" %>&emsp;
+      <%= f.number_field :height %> cm
+     </div>
+
+
+     <div class= "field mb-4">
+      <%= f.label :sex, "性別" %>&emsp;
+      <%= f.radio_button :sex, '男性' %>
+      <!--f.radio_button(メソッド名, value値, オプション={})-->
+      <span><%= f.label :sex, '男性', {style: "display: inline-block;"} %>&emsp;</span>
+
+
+      <%= f.radio_button :sex, '女性' %>
+      <span><%= f.label :sex, '女性', {style: "display: inline-block;"} %></span>
+     </div>
+
+
+     <div class= "field mb-4">
+      <%= f.label :email, "メールアドレス" %>&emsp;
+      <%= f.text_field :email %>
+     </div>
+
+     <%= f.submit "保存" %>
+
+  <% end %>
+</div>
