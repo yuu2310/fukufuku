@@ -3,7 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
+  validates :user_name, presence: true
+  validates :email, presence: true
+  validates :height, presence: true
+  validates :sex, presence: true
+  validates :is_deleted, presence: true
+
   # フォローする側から中間テーブルへのアソシエーション
   has_many :relationships, foreign_key: :followed_id
   # フォローする側からフォローされたユーザを取得する
@@ -19,7 +25,7 @@ class User < ApplicationRecord
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
-  
+
 
   has_many :posts, dependent: :destroy
 
@@ -33,3 +39,4 @@ class User < ApplicationRecord
     profile_image.variant(resize: size).processed
   end
 end
+

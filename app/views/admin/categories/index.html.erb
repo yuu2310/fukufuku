@@ -1,21 +1,59 @@
 <%= render 'admin/nav' %>
 <div class='container mt-5'>
-  <h5>カテゴリー新規作成</h5><br>
-  <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
-  <div class='from-group'>
-      <div class='from-content'>
-        <h5>カテゴリー名</h5>
-        <%= f.text_field :category_name %>
-        <%= f.submit '作成' %>
-      </div>
+
+  <% if @category.errors.any? %>
+  <%=@category.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @category.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
   <% end %>
+
+  <div class="text-center">
+    <h5>カテゴリー新規作成</h5><br>
+      <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
+        <div class='from-group'>
+          <div class='from-content'>
+
+            <%= f.label :category_name, "カテゴリー名" %>&emsp;
+            <%= f.text_field :category_name %>&emsp;
+
+            <%=  f.collection_radio_buttons :type_id, Type.all, :id, :name %>&emsp;
+            <!--f.collection_radio_buttons メソッド名, コレクション名, value値, オプション={}, ブロック引数)-->
+
+            <%= f.submit '作成' %>
+          </div>
+      <% end %>
+              </div>
   </div><br>
 
+
+
+
   <h5>カテゴリー一覧</h5>
-  <% @categories.each do |category| %>
-  <p><%= category.category_name %></p>
-  <%= link_to "編集", edit_admin_category_path(category.id) %>
-  <%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
-  <% end %>
+
+  <table class="table">
+    <% Type.all.each do |type| %>
+    <thead>
+
+      <tr>
+        <th scope="col"><%= type.name %></th>
+      </tr>
+    </thead>
+
+      <% type.categories.each do |category| %>
+      <tbody>
+        <tr>
+
+        </tr>
+      </tbody>
+        <td><%= category.category_name %></td>
+        <td><%= link_to "編集", edit_admin_category_path(category.id) %></td>
+        <td><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %></td>
+      </tbody>
+      <% end %>
+    <% end %>
+  </table>
 </div>
 

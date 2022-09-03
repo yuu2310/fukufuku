@@ -6,4 +6,6 @@ class Public::PostCommentsController < ApplicationController
   def destroy
   end
   
+  
+  
 end

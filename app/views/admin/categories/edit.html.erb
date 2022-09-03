@@ -5,7 +5,8 @@
 
     <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |f| %>
     <%= f.text_field :category_name %>
-    <%= f.submit '更新' %>
+    <%= f.collection_radio_buttons :type_id, Type.all, :id, :name %>
+    <p><%= f.submit '更新' %></p>
 
     <% end %>
 

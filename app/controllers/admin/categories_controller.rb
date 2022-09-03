@@ -1,18 +1,21 @@
 class Admin::CategoriesController < ApplicationController
-  
+
   before_action :authenticate_admin!
-  
+
 
   def index
     @categories = Category.all
     @category = Category.new
-    
+
   end
 
   def create
     @category = Category.new(category_params)
-    @category.save
-    redirect_to  admin_categories_path
+    if @category.save
+      redirect_to  admin_categories_path
+    else
+      render :index
+    end
   end
 
   def edit
@@ -32,7 +35,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:category_name)
+    params.require(:category).permit(:category_name, :type_id)
   end
 
 end

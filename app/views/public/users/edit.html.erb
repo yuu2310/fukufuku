@@ -1,5 +1,16 @@
 <%= render 'public/nav' %>
 
+<% if @user.errors.any? %>
+<div style="color: red">
+  <%= @user.errors.count %>件のエラーが発生しました
+</div>
+  <ul style="color: red">
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="container">
     <h3>プロフィール編集</h3>
 

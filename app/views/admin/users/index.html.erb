@@ -1,6 +1,30 @@
 <%= render 'admin/nav' %>
-<h3>登録ユーザー一覧</h3>
+<div class="container mt-5">
 
-<% @users.each do |user| %>
-<%= user.user_name %>
-<% end %>
+    <h3>登録ユーザー一覧</h3>
+
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">ユーザー名</th>
+          <th scope="col">メールアドレス</th>
+          <th scope="col">身長</th>
+          <th scope="col">性別</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.user_name %></td>
+          <td><%= user.email %></td>
+          <td><%=user.height %> cm</td>
+          <td><%=user.sex %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
+
+

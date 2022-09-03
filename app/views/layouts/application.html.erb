@@ -11,6 +11,15 @@
   </head>
 
   <body>
+
+    <div class="text-success">
+      <%= flash[:notice] %>
+    </div>
+
+    <div class="text-danger">
+      <%= flash[:alret] %>
+    </div>
+
     <%= yield %>
   </body>
 </html>

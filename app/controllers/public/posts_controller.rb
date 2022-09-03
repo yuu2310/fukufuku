@@ -2,6 +2,11 @@ class Public::PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @categories = Category.all
+    @tops = Category.where(type_id: 1) #whereは条件検索
+    @bottoms = Category.where(type_id: 2)
+    @shoes = Category.where(type_id: 4)
+
   end
 
   def create

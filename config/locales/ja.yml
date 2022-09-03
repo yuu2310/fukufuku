@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models: #モデル名
+      user: ユーザー
+      category: カテゴリー
+
+    attributes:
+      user:
+        user_name: ユーザー名
+        height: 身長
+        email: メールアドレス
+      category:
+        category_name: カテゴリー名
+        type_id: TopsかBottomsを

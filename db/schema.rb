@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_29_062105) do
+ActiveRecord::Schema.define(version: 2022_09_03_070357) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,11 +56,20 @@ ActiveRecord::Schema.define(version: 2022_08_29_062105) do
     t.string "category_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "type_id"
+    t.index ["type_id"], name: "index_categories_on_type_id"
   end
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_categories", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -83,6 +92,7 @@ ActiveRecord::Schema.define(version: 2022_08_29_062105) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "post_content", null: false
+    t.string "size", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -98,6 +108,12 @@ ActiveRecord::Schema.define(version: 2022_08_29_062105) do
     t.string "tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -118,4 +134,5 @@ ActiveRecord::Schema.define(version: 2022_08_29_062105) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "types"
 end
