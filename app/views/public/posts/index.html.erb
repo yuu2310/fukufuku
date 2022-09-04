@@ -1,5 +1,23 @@
 <%= render 'public/nav' %>
+<div class="container mt-5">
 
-<% @posts.each do |post| %>
-<%= post.post_content %>
-<% end %>
+      <% @posts.each do |post| %>
+      <%= image_tag post.get_image, size: "500x300" %>
+      <h4>トップス</h4>
+      <%=%>
+      <%= post.size %>
+      <h4>ジャケット/アウター</h4>
+      <%= post.size %>
+      <h4>パンツ</h4>
+      <%= post.size %>
+      <h4>シューズ</h4>
+      <%= post.size %>
+
+      <p><%= post.post_content %></p>
+
+      <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+      <% end %>
+
+
+
+</div>

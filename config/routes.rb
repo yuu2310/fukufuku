@@ -23,7 +23,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     patch '/users/withdraw' => 'users#withdraw'
     resources :posts do
       resource :favorites, only: [:create, :destroy]
-      resources :post_comments, only:[:create, :dest]
+      resources :post_comments, only:[:create, :destroy]
     end
 
   end

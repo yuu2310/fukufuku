@@ -16,22 +16,28 @@
     <h4 class="mt-5 mb-5">カテゴリー選択</h4>
 
     <div class="mb-3">
-      <%= f.label :type_id, "tops" %>
+      <%= f.label :type_id, "トップス" %>
       <%= f.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
   <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
-
+      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
     </div>
- <%#= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--選択して下さい--" %>
-
 
     <div class="mb-3">
-      <%= f.label :type_id, "bottoms" %>
-      <%= f.collection_select :category_id, @bottoms, :id, :category_name, { prompt: "--選択してください--" }  %>
+      <%= f.label :type_id, "ジャケット/アウター" %>
+      <%= f.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
+      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :type_id, "パンツ" %>
+      <%= f.collection_select :category_id, @pants, :id, :category_name, { prompt: "--選択してください--" }  %>
+      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
     </div>
 
     <div>
-      <%= f.label :type_id, "shoes" %>
+      <%= f.label :type_id, "シューズ" %>
       <%= f.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
+      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
     </div>
 
   </div>
@@ -39,11 +45,6 @@
   <div class="mt-5">
     <p><%= f.text_area :post_content, size: "50x20" %></p>
   </div>
-
-
-
-
-
 
     <p><%= f.submit "投稿" %></p>
     <% end %>
