@@ -60,3 +60,7 @@ gem 'devise'
 gem 'ancestry'
 
 gem 'rails-i18n'
+
+gem 'cocoon'
+
+gem 'jquery-rails'

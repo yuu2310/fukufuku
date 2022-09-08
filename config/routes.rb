@@ -17,9 +17,17 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about'
-    resources :users, only: [:index, :edit, :update]
-    get '/users/my_page' => 'users#show'
+    resources :users, only: [:index, :edit, :update, :show] do
+      resource :relationships, only: [:create, :destroy]
+      get :followeds, on: :member
+      #あるユーザーがフォローしている人全員を表示させるルーティング
+      get :followers, on: :member
+      #あるユーザーにフォローされている人全員を表示させるルーティング
+    end
+
+    #退会確認画面
     get '/users/unsubscribe' => 'users#unsubscribe'
+    #論理削除用のルーティング
     patch '/users/withdraw' => 'users#withdraw'
     resources :posts do
       resource :favorites, only: [:create, :destroy]

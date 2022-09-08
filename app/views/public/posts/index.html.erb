@@ -2,18 +2,27 @@
 <div class="container mt-5">
 
       <% @posts.each do |post| %>
-      <%= image_tag post.get_image, size: "500x300" %>
-      <h4>トップス</h4>
-      <%=%>
-      <%= post.size %>
-      <h4>ジャケット/アウター</h4>
-      <%= post.size %>
-      <h4>パンツ</h4>
-      <%= post.size %>
-      <h4>シューズ</h4>
-      <%= post.size %>
+      <%= link_to (image_tag post.get_image, size: "500x300"), post_path(post.id) %>
 
-      <p><%= post.post_content %></p>
+        <% post.post_details.each do |detail| %>
+      <h4><%= detail.category.category_name %></h4>
+      <h4><%= detail.size %> サイズ</h4>
+        <!--ここのsizeはカラムのsize-->
+      <% end %>
+
+      <!--失敗したコード-->
+
+      <!--<%#= post.post_details.size %>-->
+      <!--ここのsizeはrubyが持っているメソッドで配列の個数を数えてくれる-->
+
+      <!--<h4>トップス</h4>-->
+      <!--<h4>ジャケット/アウター</h4>-->
+      <!--<%#= post.post_details.size %>-->
+      <!--<h4>パンツ</h4>-->
+      <!--<%#= post.post_details.size %>-->
+      <!--<h4>シューズ</h4>-->
+      <!--<%#= post.post_details.size %>-->
+      <!--<p><%#= post.comment %></p>-->
 
       <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
       <% end %>

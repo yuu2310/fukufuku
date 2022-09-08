@@ -7,47 +7,60 @@
       <h5>新規投稿</h5>
     </div>
   </div>
-    <%= form_with model: @post, url: posts_path, method: :post do |f| %>
 
-  <div class="mt-3">
+  <%= form_with model: @post_header, url: posts_path, method: :post do |f| %>
 
-    <p><%= f.file_field :image, accept: "image/*" %></p>
+    <div class="mt-3">
 
-    <h4 class="mt-5 mb-5">カテゴリー選択</h4>
+      <p><%= f.file_field :image, accept: "image/*" %></p>
 
-    <div class="mb-3">
-      <%= f.label :type_id, "トップス" %>
-      <%= f.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
-  <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
-      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+      <h4 class="mt-5 mb-5">カテゴリー選択</h4>
+
+      <%= f.fields_for :post_details do |pd_t| %>
+        <div class="mb-3">
+        <%= pd_t.label :type_id, "トップス" %>
+        <%= pd_t.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
+    <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
+        <%= pd_t.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+      </div>
+      <% end %>
+
+
+      <%= f.fields_for :post_details do |pd_j| %>
+      <div class="mb-3">
+        <%= pd_j.label :type_id, "ジャケット/アウター" %>
+        <%= pd_j.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
+        <%= pd_j.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+      </div>
+      <% end %>
+
+
+      <%= f.fields_for :post_details do |pd_p| %>
+      <div class="mb-3">
+        <%= pd_p.label :type_id, "パンツ" %>
+        <%= pd_p.collection_select :category_id, @pants, :id, :category_name, { prompt: "--選択してください--" }  %>
+        <%= pd_p.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+      </div>
+      <% end %>
+
+
+      <%= f.fields_for :post_details do |pd_s| %>
+      <div>
+        <%= pd_s.label :type_id, "シューズ" %>
+        <%= pd_s.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
+        <%= pd_s.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+      </div>
+      <% end %>
+
     </div>
 
-    <div class="mb-3">
-      <%= f.label :type_id, "ジャケット/アウター" %>
-      <%= f.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
-      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+    <div class="mt-5">
+      <p><%= f.text_area :comment, size: "50x20" %></p>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :type_id, "パンツ" %>
-      <%= f.collection_select :category_id, @pants, :id, :category_name, { prompt: "--選択してください--" }  %>
-      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
-    </div>
-
-    <div>
-      <%= f.label :type_id, "シューズ" %>
-      <%= f.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
-      <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
-    </div>
-
-  </div>
-
-  <div class="mt-5">
-    <p><%= f.text_area :post_content, size: "50x20" %></p>
-  </div>
 
     <p><%= f.submit "投稿" %></p>
-    <% end %>
+  <% end %>
 
 </div>
 

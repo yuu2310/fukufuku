@@ -1,23 +1,69 @@
 <%= render 'public/nav' %>
 <div class="container">
-    <h2>プロフィール</h2>
+    <h2 class="mt-5"><%= @user.user_name %>さんのプロフィール</h2>
+    <div class="row">
+        <div class="col-md-4">
 
-     <%= image_tag @user.get_profile_image("200x200") %>
+             <%= image_tag @user.get_profile_image("200x200") %>
 
-    <h5>ユーザー名</h5>
-    <p><%= @user.user_name %></p>
+            <h5>ユーザー名</h5>
+            <p><%= @user.user_name %></p>
 
-    <h5>身長</h5>
-    <p><%= @user.height %> cm</p>
+            <p class=text_small><%= link_to @user.followeds.count, followeds_user_path(@user) %>フォロー <%= link_to @user.followers.count, followers_user_path(@user) %> フォロワー</p>
+
+            <% if @user == current_user %>
+
+            <% else %>
+                <% if @user.is_followed_by?(current_user) %>
+                    <%= link_to user_relationships_path(@user), method: :delete do %>
+                        <button type="button" class="btn btn btn-danger">フォロー解除</button>
+                    <% end %>
+                <% else %>
+                  <%= link_to user_relationships_path(@user), method: :post do %>
+                        <button type="button" class="btn btn btn-primary">フォロー</button>
+                  <% end %>
+                <% end %>
+            <% end %>
 
 
-    <h5>性別</h5>
-    <p><%= @user.sex %></p>
 
-    <h5>メールアドレス</h5>
-    <p><%= @user.email %></p>
+            <h5>身長</h5>
+            <p><%= @user.height %> cm</p>
 
-    <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
 
+            <h5>性別</h5>
+            <p><%= @user.sex %></p>
+
+            <h5>メールアドレス</h5>
+            <p><%= @user.email %></p>
+
+
+            <% if @user == current_user %>
+            <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
+            <% end %>
+        </div>
+
+        <div class="col-md-8">
+
+            <% @posts.each do |post| %>
+              <%= link_to (image_tag post.get_image, size: "500x400"), post_path(post.id) %>
+              <h4>トップス</h4>
+              <%= %>
+              <%= post.post_details.size %>
+              <h4>ジャケット/アウター</h4>
+              <%= post.post_details.size %>
+              <h4>パンツ</h4>
+              <%= post.post_details.size %>
+              <h4>シューズ</h4>
+              <%= post.post_details.size %>
+
+              <p><%= post.comment %></p>
+
+              <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+              <p><%= link_to "投稿を削除", user_path(current_user), method: :delete %></p>
+              <% end %>
+
+        </div>
+    </div>
 </div>
 

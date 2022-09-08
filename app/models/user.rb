@@ -21,14 +21,16 @@ class User < ApplicationRecord
   # フォローされる側からフォローしているユーザを取得する
   has_many :followers, through: :reverse_of_relationships, source: :followed
 
-  # あるユーザが引数で渡されたuserにフォローされているか調べるメソッド
+  # あるユーザが引数で渡されたuserにフォローされているのか否か調べるメソッド
   def is_followed_by?(user)
-    reverse_of_relationships.find_by(following_id: user.id).present?
+    reverse_of_relationships.find_by(followed_id: user.id).present?
   end
 
 
-  has_many :posts, dependent: :destroy
+  has_many :post_headers, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+
 
   has_one_attached :profile_image
 
@@ -39,5 +41,10 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize: size).processed
   end
+
+  # # is_deletedがfalseならtrueを返すようにしている
+  # def active_for_authentication?
+  #   super && (is_deleted == false)
+  # end
 end
 
