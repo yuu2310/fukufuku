@@ -1,13 +1,32 @@
+.includes.post(:user)
 <%= render 'public/nav' %>
 <div class="container mt-5">
+  <h1>投稿一覧</h1>
 
       <% @posts.each do |post| %>
-      <%= link_to (image_tag post.get_image, size: "500x300"), post_path(post.id) %>
-
+        <%= link_to (image_tag post.get_image("500x300")), post_path(post.id) %>
+        <p>
+          <% if post.favorited_by?(current_user) %>
+            <!--favorited_byメソッドはpost_headerモデルで定義している-->
+            <%= link_to post_favorites_path(post), method: :delete do %>
+              <span style="color: red;">♥<%= post.favorites.count %></span>
+            <% end %>
+          <% else %>
+            <%= link_to post_favorites_path(post), method: :post do %>
+              ♡<%= post.favorites.count %>
+            <% end %>
+          <% end %>
+        </p>
+            
         <% post.post_details.each do |detail| %>
-      <h4><%= detail.category.category_name %></h4>
-      <h4><%= detail.size %> サイズ</h4>
-        <!--ここのsizeはカラムのsize-->
+          <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
+                                                                                        <!--ここのsizeはカラムのsize-->
+        <% end %>
+        <%= post.comment %>
+        <%= link_to user_path(post.user_id) do %>
+          <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
+        <% end %>
+        <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
       <% end %>
 
       <!--失敗したコード-->
@@ -24,9 +43,5 @@
       <!--<%#= post.post_details.size %>-->
       <!--<p><%#= post.comment %></p>-->
 
-      <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-      <% end %>
-
-
-
+      <%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
 </div>

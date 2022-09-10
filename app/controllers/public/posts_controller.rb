@@ -6,10 +6,11 @@ class Public::PostsController < ApplicationController
     @post_header = PostHeader.new
     @post_header.post_details.build
     @categories = Category.all
-    @tops = Category.where(type_id: 8) #whereは条件検索
-    @jakets = Category.where(type_id: 9)
-    @pants = Category.where(type_id: 10)
-    @shoes = Category.where(type_id: 11)
+    @tops = Category.where(type_id: 1) #whereは条件検索
+    @jakets = Category.where(type_id: 2)
+    @pants = Category.where(type_id: 3)
+    @shoes = Category.where(type_id: 4)
+    @accessories = Category.where(type_id: 5)
   end
 
   def create
@@ -29,6 +30,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = PostHeader.find(params[:id])
     @post_comment = PostComment.new
+    @user = @post.user_id
   end
 
   def edit
@@ -37,10 +39,10 @@ class Public::PostsController < ApplicationController
   def update
   end
 
-   def destroy
+  def destroy
     @post = PostHeader.find(params[:id])
     @post.destroy
-    redirect_to users_my_page_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   private

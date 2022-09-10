@@ -19,6 +19,8 @@
             <%= f.label :category_name, "カテゴリー名" %>&emsp;
             <%= f.text_field :category_name %>&emsp;
 
+
+
             <%=  f.collection_radio_buttons :type_id, Type.all, :id, :name %>&emsp;
             <!--f.collection_radio_buttons メソッド名, コレクション名, value値, オプション={}, ブロック引数)-->
 

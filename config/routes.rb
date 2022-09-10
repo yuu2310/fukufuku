@@ -18,6 +18,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     root to: 'homes#top'
     get '/about' => 'homes#about'
     resources :users, only: [:index, :edit, :update, :show] do
+      member do
+  # member doを使うとユーザーidが含まれるurlを使えるようになる
+        get :favorites
+      end
       resource :relationships, only: [:create, :destroy]
       get :followeds, on: :member
       #あるユーザーがフォローしている人全員を表示させるルーティング

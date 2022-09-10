@@ -1,0 +1,44 @@
+<%= render "public/nav" %>
+<div class="container mt-5">
+  <h4>いいねリスト</h4>
+
+  <p><% @favorite_posts.each do |post| %></p>
+    <div>
+      <%= link_to (image_tag post.get_image("500x300")), post_path(post.id) %>
+        <div>
+            <% if post.favorited_by?(current_user) %>
+              <!--favorited_byメソッドはpost_headerモデルで定義している-->
+              <%= link_to post_favorites_path(post), method: :delete do %>
+                <span style="color: red;">♥<%= post.favorites.count %></span>
+              <% end %>
+            <% else %>
+              <%= link_to post_favorites_path(post), method: :post do %>
+                ♡<%= post.favorites.count %>
+              <% end %>
+            <% end %>
+        </div>
+    </div>
+      <% post.post_details.each do |detail| %>
+        <h4><%= detail.category.type.name %></h4>
+        <h5><%= detail.category.category_name %></h5>
+        <h6><%= detail.size %> サイズ</h6>
+      <% end %>
+
+        <p><%= post.comment %></p>
+
+
+
+
+
+        <%= link_to user_path(post.user_id) do %>
+          <%= image_tag post.user.get_profile_image("80x80") %>
+          <%= post.user.user_name %>
+        <% end %>
+
+      <p>投稿日:<%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+
+
+
+  <% end %>
+
+</div>

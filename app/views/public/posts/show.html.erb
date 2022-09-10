@@ -2,44 +2,62 @@
 <div class="container mt-5">
         <h2>投稿詳細画面</h2>
 
-        <%= image_tag @post.get_image, size: "500x300" %>
+        <%= image_tag @post.get_image("500x300") %>
 
-
-
-        <% @post.post_details.each do |post_detail| %>
-         <!--<着用アイテムのカテゴリー名とサイズ>-->
-        <h4><%= post_detail.category.category_name %></h4>
-        <h4><%= post_detail.size %> サイズ</h4>
+        <% if @post.favorited_by?(current_user) %>
+            <!--favorited_byメソッドはpost_headerモデルで定義している-->
+          <p>
+            <%= link_to post_favorites_path(@post), method: :delete do %>
+              <span style="color: red;">♥<%= @post.favorites.count %></span>
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to post_favorites_path(@post), method: :post do %>
+              ♡<%= @post.favorites.count %>
+            <% end %>
+          </p>
         <% end %>
 
+        <% @post.post_details.each do |post_detail| %>
+         <h3><%= post_detail.category.type.name %></h3>
+         <!--<着用アイテムのカテゴリー名とサイズ>-->
+          <h5><%= post_detail.category.category_name %></h5>
+          <h5><%= post_detail.size %></h5>
+        <% end %>
+
+
+      <div class="mt-2 mb-2">
         <%= @post.comment %>
+      </div>
 
-
+      <%= link_to user_path(@user) do %>
         <%= image_tag @post.user.get_profile_image("200x160") %>
-        <%= @post.user.user_name%>
+        <%= @post.user.user_name %>
+      <% end %>
 
-
+      <p><%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
 
       <div>
-        <p>コメント件数：<%= @post.post_comments.count %></p>
-        <% @post.post_comments.each do |post_comment| %>
+
+        <p><% @post.post_comments.each do |post_comment| %></p>
           <p><%= image_tag post_comment.user.get_profile_image("100x100") %></p>
           <%= post_comment.user.user_name %>
           <%= post_comment.comment %>
-          <p><%= post_comment.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+          <p>
+            <%= post_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
 
-          <% if post_comment.user == current_user %>
-            <%= link_to "削除", post_post_comment_path(post_comment.post_header, post_comment), method: :delete %>
-          <% end %>
-
-
+            <% if post_comment.user == current_user %>
+              <%= link_to "コメントを削除", post_post_comment_path(post_comment.post_header, post_comment), method: :delete %>
+            <% end %>
+          </p>
 
         <% end %>
       </div>
 
       <div>
         <%= form_with model: [@post, @post_comment], url: post_post_comments_path(@post.id), method: :post do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをこちらに", size: "30x10" %>
           <%= f.submit "送信する" %>
         <% end %>
       </div>

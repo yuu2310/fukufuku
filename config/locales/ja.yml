@@ -3,6 +3,8 @@ ja:
     models: #モデル名
       user: ユーザー
       category: カテゴリー
+      post: 投稿
+      post_detail: 
 
     attributes:
       user:
@@ -11,4 +13,11 @@ ja:
         email: メールアドレス
       category:
         category_name: カテゴリー名
+        
+      post:
+        image: 投稿する画像
+        comment: 投稿内容
+        
+      post_detail:
+        size: サイズ
   

@@ -4,7 +4,7 @@ class CreatePostDetails < ActiveRecord::Migration[6.1]
 
       t.integer :post_header_id, null: false
       t.integer :category_id, null: false
-      t.string :size, null: false
+      t.string :size
 
       t.timestamps
     end

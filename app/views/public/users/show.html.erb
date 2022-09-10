@@ -11,25 +11,20 @@
 
             <p class=text_small><%= link_to @user.followeds.count, followeds_user_path(@user) %>フォロー <%= link_to @user.followers.count, followers_user_path(@user) %> フォロワー</p>
 
-            <% if @user == current_user %>
-
-            <% else %>
-                <% if @user.is_followed_by?(current_user) %>
-                    <%= link_to user_relationships_path(@user), method: :delete do %>
-                        <button type="button" class="btn btn btn-danger">フォロー解除</button>
-                    <% end %>
-                <% else %>
-                  <%= link_to user_relationships_path(@user), method: :post do %>
-                        <button type="button" class="btn btn btn-primary">フォロー</button>
+            <% if @user != current_user %>
+              <% if @user.is_followed_by?(current_user) %>
+                  <%= link_to user_relationships_path(@user), method: :delete do %>
+                      <button type="button" class="btn btn btn-danger">フォロー解除</button>
                   <% end %>
+              <% else %>
+                <%= link_to user_relationships_path(@user), method: :post do %>
+                      <button type="button" class="btn btn btn-primary">フォロー</button>
                 <% end %>
+              <% end %>
             <% end %>
-
-
 
             <h5>身長</h5>
             <p><%= @user.height %> cm</p>
-
 
             <h5>性別</h5>
             <p><%= @user.sex %></p>
@@ -37,6 +32,7 @@
             <h5>メールアドレス</h5>
             <p><%= @user.email %></p>
 
+            <p><%=link_to"いいね一覧", favorites_user_path(@user) %></p>
 
             <% if @user == current_user %>
             <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
@@ -46,22 +42,35 @@
         <div class="col-md-8">
 
             <% @posts.each do |post| %>
-              <%= link_to (image_tag post.get_image, size: "500x400"), post_path(post.id) %>
-              <h4>トップス</h4>
-              <%= %>
-              <%= post.post_details.size %>
-              <h4>ジャケット/アウター</h4>
-              <%= post.post_details.size %>
-              <h4>パンツ</h4>
-              <%= post.post_details.size %>
-              <h4>シューズ</h4>
-              <%= post.post_details.size %>
-
+              <%= link_to (image_tag post.get_image("500x400")), post_path(post.id) %>
+              
+              
+              <div>
+                  <% if post.favorited_by?(current_user) %>
+                    <!--favorited_byメソッドはpost_headerモデルで定義している-->
+                    <%= link_to post_favorites_path(post), method: :delete do %>
+                      <span style="color: red;">♥<%= post.favorites.count %></span>
+                    <% end %>
+                  <% else %>
+                    <%= link_to post_favorites_path(post), method: :post do %>
+                      ♡<%= post.favorites.count %>
+                    <% end %>
+                  <% end %>
+              </div>
+              
+              
+              <% post.post_details.each do |detail| %>
+                <h4><%= detail.category.category_name %></h4>
+                <h4><%= detail.size %></h4>
+              <%end%>
               <p><%= post.comment %></p>
-
-              <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-              <p><%= link_to "投稿を削除", user_path(current_user), method: :delete %></p>
+              
+              <p>投稿日: <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+              <p><%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+              <% if post.user == current_user %>
+                <p><%= link_to "投稿を削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
               <% end %>
+            <% end %>
 
         </div>
     </div>

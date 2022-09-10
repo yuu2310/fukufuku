@@ -45,12 +45,21 @@
 
 
       <%= f.fields_for :post_details do |pd_s| %>
-      <div>
+      <div class="mb-3">
         <%= pd_s.label :type_id, "シューズ" %>
         <%= pd_s.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
-        <%= pd_s.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+        <%= pd_s.select :size, [["24cm", "24"], ["24.5cm", "24.5"], ["25cm", "25"], ["25.5cm", "25.5"], ["26cm", "26"], ["26.5cm", "26.5"], ["27cm", "27"], ["27.5cm", "27.5"], ["28cm", "28"], ["28.5cm", "28.5"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
       </div>
       <% end %>
+
+
+      <%= f.fields_for :post_details do |pd_a| %>
+      <div>
+        <%= pd_a.label :type_id, "アクセサリー" %>
+        <%= pd_a.collection_select :category_id, @accessories, :id, :category_name, { prompt: "--選択してください--" }  %>
+      </div>
+      <% end %>
+
 
     </div>
 
