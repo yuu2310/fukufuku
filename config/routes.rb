@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'hashtags/index'
+  get 'hashtags/show'
   # ユーザー用
 devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
@@ -37,6 +39,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only:[:create, :destroy]
     end
+    resources :hashtags, only: [:index, :show] 
 
   end
 

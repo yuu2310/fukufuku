@@ -43,8 +43,8 @@
 
             <% @posts.each do |post| %>
               <%= link_to (image_tag post.get_image("500x400")), post_path(post.id) %>
-              
-              
+
+
               <div>
                   <% if post.favorited_by?(current_user) %>
                     <!--favorited_byメソッドはpost_headerモデルで定義している-->
@@ -57,18 +57,23 @@
                     <% end %>
                   <% end %>
               </div>
-              
-              
+
               <% post.post_details.each do |detail| %>
-                <h4><%= detail.category.category_name %></h4>
-                <h4><%= detail.size %></h4>
+                <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
               <%end%>
-              <p><%= post.comment %></p>
-              
+
+              <% post.hash_tags.each do |hash_tag| %>
+                <p>
+                <%= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
+                <%= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
+                </p>
+              <% end %>
+
+
               <p>投稿日: <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
               <p><%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
               <% if post.user == current_user %>
-                <p><%= link_to "投稿を削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
+                <p><%= link_to "編集", edit_post_path(post)%>&emsp;<%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
               <% end %>
             <% end %>
 

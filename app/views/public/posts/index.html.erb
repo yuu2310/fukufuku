@@ -1,4 +1,4 @@
-.includes.post(:user)
+
 <%= render 'public/nav' %>
 <div class="container mt-5">
   <h1>投稿一覧</h1>
@@ -17,12 +17,18 @@
             <% end %>
           <% end %>
         </p>
-            
+        
         <% post.post_details.each do |detail| %>
           <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
-                                                                                        <!--ここのsizeはカラムのsize-->
+        <% end %>                                                                           <!--ここのsizeはカラムのsize-->
+        
+        <% post.hash_tags.each do |hash_tag| %>
+          <p>
+          <%= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
+          <%= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
+          </p>
         <% end %>
-        <%= post.comment %>
+          
         <%= link_to user_path(post.user_id) do %>
           <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
         <% end %>
@@ -42,6 +48,10 @@
       <!--<h4>シューズ</h4>-->
       <!--<%#= post.post_details.size %>-->
       <!--<p><%#= post.comment %></p>-->
-
       <%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
 </div>
+
+
+
+
+

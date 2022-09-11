@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PostTagRelationTest < ActiveSupport::TestCase
+class PostHashTagTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

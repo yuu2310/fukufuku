@@ -1,13 +1,15 @@
 class PostHeader < ApplicationRecord
   has_one_attached :image
 
-  # validates :user_id, presence: true
-  # validates :comment, presence: true
+
+  validates :comment, presence: true
 
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_details, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :post_hash_tags, dependent: :destroy
+  has_many :hash_tags, through: :post_hash_tags, dependent: :destroy
 
   accepts_nested_attributes_for :post_details, allow_destroy: true
 
