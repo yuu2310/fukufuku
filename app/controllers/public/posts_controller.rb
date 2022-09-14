@@ -12,14 +12,15 @@ class Public::PostsController < ApplicationController
     @pants = Category.where(type_id: 3)
     @shoes = Category.where(type_id: 4)
     @accessories = Category.where(type_id: 5)
+    @accessories_two = Category.where(type_id: 6)
   end
 
   def create
     @post = PostHeader.new(post_params)
     @post.user_id = current_user.id
-    hashtag = extract_hashtag(@post.comment) #パラメーターのcaptionの中よりハッシュタグを抽出
+    #hashtag = extract_hashtag(@post.comment) #パラメーターのcaptionの中よりハッシュタグを抽出
     @post.save! #一度投稿を保存
-    save_hashtag(hashtag,@post) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
+    #save_hashtag(hashtag,@post) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
     redirect_to  post_path(@post.id)
     # if @post.save
     #   redirect_to  post_path(@post.id)
@@ -33,6 +34,15 @@ class Public::PostsController < ApplicationController
     @hashtags = HashTag.all
     @post_hashtags = PostHashTag.all
     @post_objects = creating_structures(posts: @posts,post_hashtags: @post_hashtags,hashtags: @hashtags)
+    @q = PostHeader.ransack(params[:q])
+    @posts = @q.result.order(created_at: :desc)
+  end
+
+  def hashtag
+    @user = current_user
+    @tag = HashTag.find_by(name: params[:name])
+    @posts = @tag.post_headers
+    #byebug
   end
 
   def show
@@ -55,14 +65,17 @@ class Public::PostsController < ApplicationController
     @pants = Category.where(type_id: 3)
     @shoes = Category.where(type_id: 4)
     @accessories = Category.where(type_id: 5)
+    @accessories_two = Category.where(type_id: 6)
   end
 
   def update
     @post = PostHeader.find(params[:id])
     delete_records_related_to_hashtag(params[:id]) #こちらのメソッドで中間テーブルとハッシュタグのレコードを削除
-    @post.update(post_params)
-    hashtag = extract_hashtag(@post.caption) #投稿よりハッシュタグを取得
-    save_hashtag(hashtag,@post) #ハッシュタグの保存
+    ActiveRecord::Base.transaction do
+      @post.update(post_params)
+      hashtag = extract_hashtag(@post.comment) #投稿よりハッシュタグを取得
+      save_hashtag(hashtag,@post) #ハッシュタグの保存
+    end
     redirect_to post_path(@post.id)
   end
 

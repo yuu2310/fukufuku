@@ -1,29 +1,29 @@
-<h2>投稿一覧</h2>
-<div style = "display: flex; flex-wrap: wrap;">
-    <% @post_objects.each_with_index do |post,i| %>
-        <%
-            display_caption = post["caption"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
-        %>
-        <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
-            <%= attachment_image_tag @posts[i],:image,style: 'width: 40%;' %>
-            <div style="border-bottom: 1px solid">
-                <p style="color: red">title</p>
-                <%= post["title"] %>
-            </div>
-            <div>
-                <p style="color: red">caption</p>
-                <p>
-                    <%= display_caption %><br>
-                    <% if post["hashtags"].present? %>
-                        <% post["hashtags"].each do |hashtag| %>
-                            <%= link_to "##{hashtag.name}", hashtag_path(hashtag.id) %>
-                        <% end %>
-                    <% end %>
-                <p>
-            </div>
-            <%= link_to "詳細", post_path(id: post["id"]) %>
-            <%= link_to "編集", edit_post_path(id: post["id"]) %>
-            <%= link_to "削除", post_path(id: post["id"]),method: :delete %>
-        </div>
-    <% end %>
-</div>
+<!--<h2>投稿一覧</h2>-->
+<!--<div style = "display: flex; flex-wrap: wrap;">-->
+<!--    <%# @post_objects.each_with_index do |post,i| %>-->
+<!--        <%#-->
+<!--            display_caption = post["caption"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")-->
+<!--        %>-->
+<!--        <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">-->
+<!--            <%#= attachment_image_tag @posts[i],:image,style: 'width: 40%;' %>-->
+<!--            <div style="border-bottom: 1px solid">-->
+<!--                <p style="color: red">title</p>-->
+<!--                <%#= post["title"] %>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <p style="color: red">caption</p>-->
+<!--                <p>-->
+<!--                    <%#= display_caption %><br>-->
+<!--                    <%# if post["hashtags"].present? %>-->
+<!--                        <%# post["hashtags"].each do |hashtag| %>-->
+<!--                            <%#= link_to "##{hashtag.name}", hashtag_path(hashtag.id) %>-->
+<!--                        <%# end %>-->
+<!--                    <%# end %>-->
+<!--                <p>-->
+<!--            </div>-->
+<!--            <%#= link_to "詳細", post_path(id: post["id"]) %>-->
+<!--            <%#= link_to "編集", edit_post_path(id: post["id"]) %>-->
+<!--            <%#= link_to "削除", post_path(id: post["id"]),method: :delete %>-->
+<!--        </div>-->
+    <!--<%# end %>-->
+<!--</div>-->

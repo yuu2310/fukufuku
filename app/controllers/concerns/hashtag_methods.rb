@@ -14,6 +14,7 @@ module HashtagMethods
 
     #--------------ハッシュタグ保存処理　create update アクションの中で実行　----------------
     def save_hashtag(hashtag_array,post_instance)
+        #hashtag_array → ["#aaa","#bbb"]
       # ハッシュタグをハッシュタグテーブルに保存する、そして中間テーブルへの保存処理を行っております。
       # 引数で渡ってきたハッシュタグの配列を、重複しないようにハッシュタグテーブルに保存の後、
       # 引数で渡ってきたpost_instance(Post.new)のようなオブジェクトのidをハッシュタグのidとセットにして中間テーブルに保存します。
@@ -37,12 +38,13 @@ module HashtagMethods
     #---------ハッシュタグの情報をPostオブジェクトに含めるメソッド------------
     def creating_structures(posts: "",post_hashtags: "",hashtags: "")
         #引数として必要なのはPostのデータ、中間テーブルの全データ、ハッシュタグの全てのデータです。
-        #このメソッドはPostのActiveRecordインスタンスをハッシュに変換し、更に一つ一つのオブジェクトに対し、idに紐づくハッシュタグを配列として格納するメソッドです。
+        #このメソッドはPostのActiveRecordインスタンスをハッシュに変換し、更に一つ一つのオブジェクト(ハッシュ形式)に対し、idに紐づくハッシュタグを配列として格納するメソッドです。
         array = [] #最終戻り値用
         posts.each do |post|
             hashtag = [] #中間テーブルのID情報から探したハッシュタグを格納するための配列
-            post_hash = post.attributes #ActiveRecordインスタンスをハッシュに変換 { key => val, key=> val}
+            post_hash = post.attributes #ActiveRecordインスタンスをハッシュに変換 { user_id => val, comment=> val }
             related_hashtag_records = post_hashtags.select{|ph| ph.post_header_id == post.id } #中間テーブルより投稿idが一致するレコードを取り出す
+
             related_hashtag_records.each do |record|
                 hashtag << hashtags.detect{ |hashtag| hashtag.id == record.hash_tag_id } #上記レコードをもとにハッシュタグを検索し、配列に格納
             end
@@ -54,17 +56,17 @@ module HashtagMethods
 
     #---------ハッシュタグの情報をハッシュタグテーブルと中間テーブルから削除するメソッド------------
     def delete_records_related_to_hashtag(post_id)
-        relationship_records = PostHashtag.where(post_id: post_id) #中間テーブルのレコード
+        relationship_records = PostHashTag.where(post_header_id: post_id) #中間テーブルのレコード
         if relationship_records.present? #中間テーブルにレコードが保存されていれば
             relationship_records.each do |record|
                 record.destroy #中間テーブルのレコードを削除する
             end
         end
-        all_hashtags = Hashtag.all
-        all_related_records = PostHashtag.all
+        all_hashtags = HashTag.all
+        all_related_records = PostHashTag.all
         all_hashtags.each do |hashtag|
             #ハッシュタグに紐づくレコードが中間テーブルに保存されていなければ、ハッシュタグを削除する
-            if all_related_records.none?{ |record| hashtag.id == record.hashtag_id }
+            if all_related_records.none?{ |record| hashtag.id == record.hash_tag_id }
                     hashtag.destroy
             end
         end

@@ -39,7 +39,9 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only:[:create, :destroy]
     end
-    resources :hashtags, only: [:index, :show] 
+    resources :post_details
+    get '/posts/hashtags/:name' => 'posts#hashtag'
+    resources :hashtags, only: [:index, :show]
 
   end
 

@@ -5,50 +5,71 @@
   <div class="row">
     <div class="col-md">
       <div class="mb-3">
+        <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
+            <%= f.file_field :image, accept: "image/*" %>
+            <%=image_tag @post.get_image("500x400") %>
+            <p><%= f.submit "更新" %></p>
+        <% end %>
+      </div>
 
-        <%= form_with model: @user, url: user_path do |f| %>
+
+      <% @post.post_details.each do |post_detail| %>
+        <%= form_with model: post_detail, url: post_detail_path(post_detail), method: :patch do |f| %>
+          <% if post_detail.category.type_id == 1 %>
+            <div class="mb-3">
+              <%= f.label :type_id, "トップス" %>
+              <%= f.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
+            <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
+              <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+            </div>
+          <% elsif post_detail.category.type_id == 2 %>
+            <div class="mb-3">
+              <%= f.label :type_id, "ジャケット/アウター" %>
+              <%= f.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
+              <%= f.select :size, [["--","--"], ["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+            </div>
+          <% elsif post_detail.category.type_id == 3 %>
+            <div class="mb-3">
+              <%= f.label :type_id, "パンツ" %>
+              <%= f.collection_select :category_id, @pants, :id, :category_name, { prompt: "--選択してください--" }  %>
+              <%= f.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+            </div>
+          <% elsif post_detail.category.type_id == 4 %>
+            <div class="mb-3">
+              <%= f.label :type_id, "シューズ" %>
+              <%= f.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
+              <%= f.select :size, [["24cm", "24cm"], ["24.5cm", "24.5cm"], ["25cm", "25cm"],
+              ["25.5cm", "25.5cm"], ["26cm", "26cm"], ["26.5cm", "26.5cm"],
+              ["27cm", "27cm"], ["27.5cm", "27.5cm"], ["28cm", "28cm"], ["28.5cm", "28.5cm"]],
+              include_blank: "--サイズを選択して下さい--", size: 30 %>
+            </div>
+          <% elsif post_detail.category.type_id == 5 %>
+            <div>
+              <%= f.label :type_id, "アクセサリー" %>
+              <%= f.collection_select :category_id, @accessories, :id, :category_name, { prompt: "--選択してください--" }  %>
+            </div>
+          <% elsif post_detail.category.type_id == 6 %>
+            <div>
+              <%= f.label :type_id, "アクセサリー2" %>
+              <%= f.collection_select :category_id, @accessories_two, :id, :category_name, { prompt: "--選択してください--" }  %>
+            </div>
+          <% end %>
+          <%= f.submit "更新" %>
+        <% end %>
+      <% end %>
 
 
-        <%= f.file_field :profile_image, accept: "image/*" %>
-        <%=image_tag @post.get_image("500x400") %>
-
-
-        <% @post.post_details.each do |detail| %>
-        
-          <p><%= detail.category.type.name %>・・・・・
-           <%= detail :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
-          <select class="form-select" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1"><%= detail.category.category_name %></option>
-          </select>
-            <%= detail.size %></p>
-        <%end%>
-
+      <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
         <% @post.hash_tags.each do |hash_tag| %>
           <p>
-          <%= @post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-          <%= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
+          <%#= f.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
+          <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
           </p>
         <% end %>
+        <%= f.text_area :comment %>
 
-         <%= f.file_field :get_image, accept: "image/*" %>
-         <!--file_fieldは画像を選択する-->
-
-        <% end %>
-        
-
-          
-          
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
+        <%= f.submit "更新" %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -21,15 +21,21 @@
       <% post.post_details.each do |detail| %>
         <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
       <% end %>
-      
-      <% post.hash_tags.each do |hash_tag| %>
-          <p>
-          <%= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-          <%= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
-          </p>
-        <% end %>
 
-       
+      <%# post.hash_tags.each do |hash_tag| %>
+          <!--<p>-->
+          <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
+          <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
+          <!--</p>-->
+        <%# end %>
+
+        <p>
+          <%= render_with_hashtags(post.comment) %>
+        <p>
+
+
+
+
 
 
 

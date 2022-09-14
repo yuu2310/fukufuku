@@ -27,7 +27,7 @@
       <div class="mb-3">
         <%= pd_j.label :type_id, "ジャケット/アウター" %>
         <%= pd_j.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
-        <%= pd_j.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+        <%= pd_j.select :size, [["--","--"], ["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
       </div>
       <% end %>
 
@@ -45,7 +45,10 @@
       <div class="mb-3">
         <%= pd_s.label :type_id, "シューズ" %>
         <%= pd_s.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
-        <%= pd_s.select :size, [["24cm", "24"], ["24.5cm", "24.5"], ["25cm", "25"], ["25.5cm", "25.5"], ["26cm", "26"], ["26.5cm", "26.5"], ["27cm", "27"], ["27.5cm", "27.5"], ["28cm", "28"], ["28.5cm", "28.5"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+        <%= pd_s.select :size, [["24cm", "24cm"], ["24.5cm", "24.5cm"], ["25cm", "25cm"],
+        ["25.5cm", "25.5cm"], ["26cm", "26cm"], ["26.5cm", "26.5cm"],
+        ["27cm", "27cm"], ["27.5cm", "27.5cm"], ["28cm", "28cm"], ["28.5cm", "28.5cm"]],
+        include_blank: "--サイズを選択して下さい--", size: 30 %>
       </div>
       <% end %>
 
@@ -54,6 +57,13 @@
       <div>
         <%= pd_a.label :type_id, "アクセサリー" %>
         <%= pd_a.collection_select :category_id, @accessories, :id, :category_name, { prompt: "--選択してください--" }  %>
+      </div>
+      <% end %>
+
+      <%= f.fields_for :post_details do |pd_a_t| %>
+      <div>
+        <%= pd_a_t.label :type_id, "アクセサリー2" %>
+        <%= pd_a_t.collection_select :category_id, @accessories_two, :id, :category_name, { prompt: "--選択してください--" }  %>
       </div>
       <% end %>
     </div>

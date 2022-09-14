@@ -1,6 +1,7 @@
 class HashtagsController < ApplicationController
   include HashtagMethods
 
+
   def index
     hashtags = HashTag.all.select(:id,:name) #全てのハッシュタグを取得
     hashtag_count = PostHashTag.all.group(:hash_tag_id).count #中間テーブルのレコードをhashtag_id毎にグループ化し、数を取得(Viewにて数を表示したいため)
