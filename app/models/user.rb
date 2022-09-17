@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :height, presence: true
   validates :sex, presence: true
-  validates :is_deleted, presence: true
+
 
   # フォローする側から中間テーブルへのアソシエーション
   has_many :relationships, foreign_key: :followed_id
@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
 
   has_one_attached :profile_image
-  
+
 
   def get_profile_image(size)
     unless profile_image.attached?
@@ -42,10 +42,5 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize: size).processed
   end
-
-  # # is_deletedがfalseならtrueを返すようにしている
-  # def active_for_authentication?
-  #   super && (is_deleted == false)
-  # end
 end
 

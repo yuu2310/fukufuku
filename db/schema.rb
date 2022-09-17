@@ -110,22 +110,9 @@ ActiveRecord::Schema.define(version: 2022_09_10_075413) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "post_tag_relations", force: :cascade do |t|
-    t.integer "tag_id", null: false
-    t.integer "post_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -142,7 +129,7 @@ ActiveRecord::Schema.define(version: 2022_09_10_075413) do
     t.string "user_name", null: false
     t.integer "height", null: false
     t.string "sex", null: false
-    t.string "is_deleted", default: "f", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

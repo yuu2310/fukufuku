@@ -11,6 +11,7 @@ ja:
         user_name: ユーザー名
         height: 身長
         email: メールアドレス
+        sex: 性別
       category:
         category_name: カテゴリー名
         

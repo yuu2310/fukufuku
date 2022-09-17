@@ -15,7 +15,9 @@ class PostHeader < ApplicationRecord
 
 # ログイン中のユーザーがその投稿に対していいねをしているかを判断するメソッド
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    if user
+      favorites.exists?(user_id: user.id)
+    end
   end
 
 

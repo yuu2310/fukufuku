@@ -19,6 +19,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about'
+    #退会確認画面
+    get '/users/unsubscribe' => 'users#unsubscribe'
+    #論理削除用のルーティング
+    patch '/users/withdraw' => 'users#withdraw'
     resources :users, only: [:index, :edit, :update, :show] do
       member do
   # member doを使うとユーザーidが含まれるurlを使えるようになる
@@ -31,10 +35,8 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
       #あるユーザーにフォローされている人全員を表示させるルーティング
     end
 
-    #退会確認画面
-    get '/users/unsubscribe' => 'users#unsubscribe'
-    #論理削除用のルーティング
-    patch '/users/withdraw' => 'users#withdraw'
+
+
     resources :posts do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only:[:create, :destroy]

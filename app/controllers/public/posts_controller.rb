@@ -41,8 +41,7 @@ class Public::PostsController < ApplicationController
   def hashtag
     @user = current_user
     @tag = HashTag.find_by(name: params[:name])
-    @posts = @tag.post_headers
-    #byebug
+    @posts = @tag.post_headers.order(created_at: :desc)
   end
 
   def show
