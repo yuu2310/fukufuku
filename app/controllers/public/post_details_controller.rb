@@ -5,6 +5,8 @@ class Public::PostDetailsController < ApplicationController
     @post.update(post_params)
     redirect_to edit_post_path(@post.post_header.id)
   end
+  
+  
 
   private
 

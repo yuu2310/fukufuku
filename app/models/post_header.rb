@@ -1,7 +1,7 @@
 class PostHeader < ApplicationRecord
   has_one_attached :image
 
-
+  validates :image, presence: true
   validates :comment, presence: true
 
   belongs_to :user
@@ -19,6 +19,8 @@ class PostHeader < ApplicationRecord
       favorites.exists?(user_id: user.id)
     end
   end
+  
+ 
 
 
    #DBへのコミット直前に実施する

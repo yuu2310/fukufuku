@@ -57,6 +57,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      flash[:notice] = "プロフィールを更新しました！"
       redirect_to user: :show
     else
       render :edit
@@ -68,7 +69,6 @@ class Public::UsersController < ApplicationController
 
   def withdraw
     @user = current_user
-    # byebug
     if @user.update(is_deleted: true)
       reset_session
       redirect_to root_path, notice: "アカウントを削除しました。またのご利用を心よりお待ちしております。"

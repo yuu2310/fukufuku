@@ -11,7 +11,7 @@
               <%= search_form_for @q do |f| %>
 
                 <%= f.label :user_name, "ユーザー名" %>
-                <%= f.search_field :user_name_cont %> <!--user_name_contはuser_nameカラムの単語の一部分を含むものを検索するという意味-->
+                <%= f.search_field :user_name_cont, placeholder: "ユーザー名を入力" %> <!--user_name_contはuser_nameカラムの単語の一部分を含むものを検索するという意味-->
 
                 <%= f.label :height %>
                 <%= f.number_field :height_lt %>&ensp;〜cm未満

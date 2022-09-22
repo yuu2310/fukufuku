@@ -36,6 +36,12 @@
               <!--  <button class="btn btn-outline-secondary" type="button"><%#= link_to 'About', class: 'nav-link text-dark'  %></button>-->
               <!--</li>-->
 
+
+
+               <li class="mr-2">
+                <button class="btn btn-outline-secondary" type="button"> <%= link_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'nav-link text-dark' %></button>
+              </li>
+
               <li class="mr-2">
                 <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規登録',  new_user_registration_path, class: 'nav-link text-dark'  %></button>
               </li>

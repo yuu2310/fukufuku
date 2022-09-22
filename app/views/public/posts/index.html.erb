@@ -3,11 +3,21 @@
 <div class="container mt-5">
   <h1>投稿一覧</h1>
 
-  <!--<h4>投稿検索</h4>-->
-    <%#= search_form_for @q, url: posts_path do |f| %>
-      <%#= f.text_field :comment %>
-      <%#= f.submit 'Search' %>
-    <%# end %>
+  <%= form_with model: @posts, url: {controller: 'public/posts', action: 'index' }, method: :get do  |f| %>
+    <div>
+      <%= f.label :comment, "キーワード" %>
+      <%= f.search_field :comment %>
+    </div>
+    <div>
+      <%= f.label :category, "カテゴリー一覧" %>
+      <%= f.fields_for :category do |category| %>
+        <%= category.collection_select :category_id, Category.all, :id, :category_name, { prompt: "--選択してください--" }  %>
+        <%#= type.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
+        <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
+      <% end %>
+    </div>
+    <%= f.submit "検索" %>
+  <% end %>
 
       <% @posts.each do |post| %>
         <%= link_to (image_tag post.get_image("500x300")), post_path(post.id) %>
@@ -64,7 +74,8 @@
 
 
 
-
+<!--3回層以上だとransackは向いていないため-->
+<!--<PostHeader id: 1, user_id: 2, comment: "#秋服コーデ\r\n#服好きと繋がりたい\r\n初投稿です", created_at: "2022-09-16 22:17:48.751003000 +0900", updated_at: "2022-09-16 22:17:48.867854000 +0900">-->
 
 
 

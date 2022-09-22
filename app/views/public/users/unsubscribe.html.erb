@@ -1,7 +1,10 @@
-<h2>アカウント削除</h2>
+<%= render 'public/nav' %>
+<div class="container mt-5">
+ <h2>アカウント削除</h2>
  <p>
    アカウントを削除をされますと、全てのサービスがご利用いただけなくなります。<br>
    再度ご利用をいただく場合には、新規登録のお手続きが必要になります。<br>
  </p>
   <%= link_to "削除する", users_withdraw_path, method: :patch, data: { confirm: "本当に退会しますか？" } %>
   <%= link_to "削除しない", user_path(current_user) %>
+</div>

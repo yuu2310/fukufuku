@@ -19,9 +19,13 @@ class Public::PostsController < ApplicationController
     @post = PostHeader.new(post_params)
     @post.user_id = current_user.id
     #hashtag = extract_hashtag(@post.comment) #パラメーターのcaptionの中よりハッシュタグを抽出
-    @post.save! #一度投稿を保存
+    if @post.save! #一度投稿を保存
     #save_hashtag(hashtag,@post) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
-    redirect_to  post_path(@post.id)
+      redirect_to  post_path(@post.id)
+    else
+      @post_header = PostHeader.new
+      render :new
+    end
     # if @post.save
     #   redirect_to  post_path(@post.id)
     # elsif
@@ -33,9 +37,24 @@ class Public::PostsController < ApplicationController
     @posts = PostHeader.all
     @hashtags = HashTag.all
     @post_hashtags = PostHashTag.all
-    @post_objects = creating_structures(posts: @posts,post_hashtags: @post_hashtags,hashtags: @hashtags)
-    @q = PostHeader.ransack(params[:q])
-    @posts = @q.result.order(created_at: :desc)
+    @post_objects = creating_structures(posts: PostHeader.all,post_hashtags: @post_hashtags,hashtags: @hashtags)
+    #<ActionController::Parameters {"post_header"=>{"comment_cont"=>"123123", "category"=>{"category_id"=>"1"}}, "commit"=>"検索", "controller"=>"public/posts", "action"=>"index"} permitted: false>
+    search(params) if params[:post_header].present?
+    # @posts = @q.result(distinct: true).order(created_at: "DESC")
+    @tops = Category.where(type_id: 1) #whereは条件検索
+    @jakets = Category.where(type_id: 2)
+    @pants = Category.where(type_id: 3)
+    @shoes = Category.where(type_id: 4)
+    @accessories = Category.where(type_id: 5)
+    @accessories_two = Category.where(type_id: 6)
+  end
+
+  def search(params)
+    @posts = PostHeader.joins(post_details: {category: :type})
+    # コメント検索
+    @posts = @posts.where('comment LIKE ?', "%#{params[:post_header][:comment]}%").distinct if params[:post_header][:comment].present?
+    # カテゴリー検索
+    @posts = @posts.merge(PostDetail.where('category_id like ?', params[:post_header][:category][:category_id])) if params[:post_header][:category][:category_id].present?
   end
 
   def hashtag
