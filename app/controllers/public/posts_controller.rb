@@ -34,7 +34,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = PostHeader.all
+    @posts = PostHeader.all.page(params[:page]).per(6)
     @hashtags = HashTag.all
     @post_hashtags = PostHashTag.all
     @post_objects = creating_structures(posts: PostHeader.all,post_hashtags: @post_hashtags,hashtags: @hashtags)
@@ -55,6 +55,7 @@ class Public::PostsController < ApplicationController
     @posts = @posts.where('comment LIKE ?', "%#{params[:post_header][:comment]}%").distinct if params[:post_header][:comment].present?
     # カテゴリー検索
     @posts = @posts.merge(PostDetail.where('category_id like ?', params[:post_header][:category][:category_id])) if params[:post_header][:category][:category_id].present?
+    @posts = @posts.page(params[:page]).per(6)
   end
 
   def hashtag

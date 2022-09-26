@@ -1,2 +1,32 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.heart {
+  margin-right: 100px;
+}
+
+.btn-primary {
+  margin-right: 100px;
+}
+
+// .btn:hover {
+//   color: #fff;
+//   background: #CCFFCC;
+// }
+
+.btn--radius {
+   border-radius: 100vh;
+}
+
+.item {
+  background-color: #FFF8DC;
+}
+
+.message {
+   text-align: center;
+}
+
+ul {
+  text-align: center;
+  list-style: none;
+}

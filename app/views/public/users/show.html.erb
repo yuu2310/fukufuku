@@ -1,6 +1,6 @@
 <%= render 'public/nav' %>
 <div class="container">
-    <h2 class="mt-5"><%= @user.user_name %>さんのプロフィール</h2>
+    <h2 class="mt-5 mb-5"><%= @user.user_name %>さんのプロフィール</h2>
     <div class="row">
         <div class="col-md-4">
 
@@ -45,7 +45,7 @@
             <%= link_to (image_tag post.get_image("500x400")), post_path(post.id) %>
 
 
-            <div>
+            <div class="text-center ml-5">
                 <% if post.favorited_by?(current_user) %>
                   <!--favorited_byメソッドはpost_headerモデルで定義している-->
                   <%= link_to post_favorites_path(post), method: :delete do %>

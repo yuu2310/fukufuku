@@ -13,12 +13,13 @@ class Public::UsersController < ApplicationController
   @favorite_posts = PostHeader.find(favorites)
   @post_comment = PostComment.new
   # @users = User.where.not(id: current_user.id)
+
  end
 
  def index
   # @users = User.all
   @users = User.where.not(id: current_user.id)
-  @q = User.ransack(params[:q])
+  @q = User.page(params[:page]).per(4).ransack(params[:q])
   # params[:q]：検索フォームでの入力した値を受け取る
   # User.ransack(prams[:q])：検索フォームの条件、入力した値(params[:q])を元に、usersテーブルからデータを検索します。データの検索条件はオプションで指定できます
   @users = @q.result(distinct: true).order(created_at: "DESC") #usersの検索結果一覧

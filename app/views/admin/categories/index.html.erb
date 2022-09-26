@@ -24,7 +24,7 @@
             <%=  f.collection_radio_buttons :type_id, Type.all, :id, :name %>&emsp;
             <!--f.collection_radio_buttons メソッド名, コレクション名, value値, オプション={}, ブロック引数)-->
 
-            <%= f.submit '作成' %>
+            <p><%= f.submit '作成', class: "" %></p>
           </div>
         </div>
       <% end %>
@@ -51,8 +51,8 @@
         </tr>
       </tbody>
         <td><%= category.category_name %></td>
-        <td><%= link_to "編集", edit_admin_category_path(category.id) %></td>
-        <td><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %></td>
+        <td><%= link_to "編集", edit_admin_category_path(category.id), class: "btn-success" %></td>
+        <td><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn-danger"  %></td>
       </tbody>
       <% end %>
     <% end %>

@@ -3,19 +3,19 @@
  <div class="container">
       <div class="text-center">
         <div class="row">
-          <div class="col-5 mt-5 bg-light">
+          <div class="col-5 mt-5">
             <h2><%= @user.user_name %> 様の会員情報編集</h2>
           </div>
         </div>
       </div>
 
       <% if @user.errors.any? %>
-        <h5 class="text-danger">
+        <div class="text-danger message">
           ※<%= @user.errors.count %>件のエラーが発生しました
-        </h5>
+        </div>
         <ul class="text-danger list-unstyled">
           <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+            <li ><%= message %></li>
           <% end %>
         </ul>
       <% end %>
@@ -44,7 +44,7 @@
             <tr>
                <th scope="row">性別</th>
               <td>
-                
+
 
                 <%= user.radio_button :sex, '男性' %>
                 <!--f.radio_button(メソッド名, value値, オプション={})-->
@@ -68,9 +68,7 @@
           </tbody>
         </table>
 
-      
             <%= user.submit '変更を保存', class: 'btn btn-success' %>
-       
 
           <% end %>
     </div>

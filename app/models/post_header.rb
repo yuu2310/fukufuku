@@ -20,8 +20,6 @@ class PostHeader < ApplicationRecord
     end
   end
   
- 
-
 
    #DBへのコミット直前に実施する
   after_create do

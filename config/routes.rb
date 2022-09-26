@@ -7,7 +7,7 @@ devise_for :users,skip: [:passwords], controllers: {
 }
 
 devise_scope :user do
-  post 'guest_sign_in' => 'sessions#guest_sign_in'
+  post 'guest_sign_in', to: 'public/sessions#guest_sign_in'
 end
 
 # 管理者用
@@ -57,6 +57,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     resources :users, only:[:index, :show, :edit, :update, :destroy]
     resources :tags, only:[:index, :create]
     resources :categories, only:[:index, :create, :edit, :update, :destroy]
+    
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -1,56 +1,76 @@
 <%= render 'public/nav' %>
 
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-4 mt-5">
-      <h3>ユーザー一覧</h3>
+  <h3>ユーザー一覧</h3>
 
-          <div>
-            <div class="row">
-              <h6>ユーザー検索</h6>
-              <%= search_form_for @q do |f| %>
+    <div class="col mx-5">
+      <div>
+        <%= search_form_for @q do |f| %>
+          <div class="col">
+            <div class="text-center">
+              <%= f.label :user_name, "ユーザー名" %>
+            </div>
+            <div class="text-center">
+              <%= f.search_field :user_name_cont %> <!--user_name_contはuser_nameカラムの単語の一部分を含むものを検索するという意味-->
+            </div>
 
-                <%= f.label :user_name, "ユーザー名" %>
-                <%= f.search_field :user_name_cont, placeholder: "ユーザー名を入力" %> <!--user_name_contはuser_nameカラムの単語の一部分を含むものを検索するという意味-->
+            <div class="text-center">
+              <%= f.label :height, "身長" %>
+            </div>
+            <div class="text-center">
+              <%= f.number_field :height_lt %>&ensp;〜cm未満
+              <!--height_ltによって入力した数字未満のheightを検索-->
+              <%= f.number_field :height_gteq %>&ensp;cm以上〜
+              <!--height_gteqによって入力した数字以上のageを検索-->
+            </div>
 
-                <%= f.label :height %>
-                <%= f.number_field :height_lt %>&ensp;〜cm未満
-                <!--height_ltによって入力した数字未満のheightを検索-->
-                <%= f.number_field :height_gteq %>&ensp;cm以上〜
-                <!--height_gteqによって入力した数字以上のageを検索-->
+            <div class="text-center">
+              <%= f.label :sex, "性別" %>
 
+            </div>
 
-                <%= f.label :sex, "性別" %>
-                <%= f.radio_button :sex_eq, '', {:checked => true} %>指定なし
-                <%= f.radio_button :sex_eq, "男性" %>男性 <!--カラム名_eqは完全一致の検索であるので、キーワード検索などにも利用できる-->
-                <%= f.radio_button :sex_eq, "女性" %>女性
+            <div class="text-center">
+               <%= f.radio_button :sex_eq, '', {:checked => true} %>指定なし
+              <%= f.radio_button :sex_eq, "男性" %>男性 <!--カラム名_eqは完全一致の検索であるので、キーワード検索などにも利用できる-->
+              <%= f.radio_button :sex_eq, "女性" %>女性
+            </div>
 
-              <%= f.submit "検索" %>
-             <%#= f.text_field :user_name_cont , placeholder: "ユーザー名を入力してください", size: "30", class: 'input' %>
-              <%#= button_tag type: 'submit', class: 'search__button' do %>
-                 <%#= f.submit "検索" %>
-               <%# end %>
-            <% end %>
+            <div class="text-center">
+               <%= f.submit "検索", class: "d-grid gap-2 col-6 btn btn-secondary" %>
             </div>
           </div>
 
-        <% @users.each do |user| %>
-          <%= link_to (image_tag user.get_profile_image("200x120")), user_path(user) %>
-          <p><%= user.user_name %></p>
-            <% if user != current_user %>
-              <% if user.is_followed_by?(current_user) %>
-                <%= link_to user_relationships_path(user), method: :delete do %>
-                  <p><button type="button" class="btn btn btn-danger">フォロー解除</button></p>
-                <% end %>
-              <% else %>
-                <%= link_to user_relationships_path(user), method: :post do %>
-                  <p><button type="button" class="btn btn btn-primary">フォロー</button></p>
-                <% end %>
-              <% end %>
-            <% end %>
+
+         <%#= f.text_field :user_name_cont , placeholder: "ユーザー名を入力してください", size: "30", class: 'input' %>
+          <%#= button_tag type: 'submit', class: 'search__button' do %>
+             <%#= f.submit "検索" %>
+           <%# end %>
         <% end %>
-
-
+      </div>
     </div>
+  <div class="row">
+    <% @users.each do |user| %>
+    <div class="col-3">
+      <div class="text-center mt-5">
+      <%= link_to (image_tag user.get_profile_image("200x120")), user_path(user) %>
+      </div>
+      <div class="text-center">
+        <%= user.user_name %>
+      </div>
+    </div>
+        <%# if user != current_user %>
+          <%# if user.is_followed_by?(current_user) %>
+            <%#= link_to user_relationships_path(user), method: :delete do %>
+              <!--<p><button type="button" class="btn btn btn-danger">フォロー解除</button></p>-->
+            <%# end %>
+          <%# else %>
+            <%#= link_to user_relationships_path(user), method: :post do %>
+              <!--<p><button type="button" class="btn btn btn-primary">フォロー</button></p>-->
+            <%# end %>
+          <%# end %>
+        <%# end %>
+    <% end %>
+    <%= paginate @users %>
   </div>
+
 </div>

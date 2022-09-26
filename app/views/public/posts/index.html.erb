@@ -4,11 +4,12 @@
   <h1>投稿一覧</h1>
 
   <%= form_with model: @posts, url: {controller: 'public/posts', action: 'index' }, method: :get do  |f| %>
-    <div>
+  <div class="row justify-content-center">
+    <div class="mr-5">
       <%= f.label :comment, "キーワード" %>
       <%= f.search_field :comment %>
     </div>
-    <div>
+    <div class="mr-4">
       <%= f.label :category, "カテゴリー一覧" %>
       <%= f.fields_for :category do |category| %>
         <%= category.collection_select :category_id, Category.all, :id, :category_name, { prompt: "--選択してください--" }  %>
@@ -16,12 +17,18 @@
         <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
       <% end %>
     </div>
-    <%= f.submit "検索" %>
+
+    <%= f.submit "検索", class: "btn btn-secondary" %>
+  </div>
   <% end %>
 
-      <% @posts.each do |post| %>
-        <%= link_to (image_tag post.get_image("500x300")), post_path(post.id) %>
-        <p>
+  <div class="row">
+    <% @posts.each do |post| %>
+    <div class="col-4 mt-5 border">
+      <%= link_to post_path(post.id) do %>
+        <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;"%>
+      <%end%>
+        <p style="display: flex; justify-content: flex-end;">
           <% if post.favorited_by?(current_user) %>
             <!--favorited_byメソッドはpost_headerモデルで定義している-->
             <%= link_to post_favorites_path(post), method: :delete do %>
@@ -53,7 +60,18 @@
           <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
         <% end %>
         <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+
+    </div>
+    <% end %>
+
+
+      <% if @posts.count == 0 %>
+       <p class="text-center">検索結果がありませんでした</p>
       <% end %>
+
+  </div>
+
+    <%= paginate @posts %>
 
       <!--失敗したコード-->
 
@@ -70,12 +88,3 @@
       <!--<p><%#= post.comment %></p>-->
       <%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
 </div>
-
-
-
-
-<!--3回層以上だとransackは向いていないため-->
-<!--<PostHeader id: 1, user_id: 2, comment: "#秋服コーデ\r\n#服好きと繋がりたい\r\n初投稿です", created_at: "2022-09-16 22:17:48.751003000 +0900", updated_at: "2022-09-16 22:17:48.867854000 +0900">-->
-
-
-
