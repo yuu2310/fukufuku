@@ -2,10 +2,12 @@
 <div class='container mt-5'>
 
   <% if @category.errors.any? %>
-  <%=@category.errors.count %>件のエラーが発生しました
-  <ul>
+  <div class="message" style="color: red">
+    ※<%=@category.errors.count %>件のエラーが発生しました
+  </div>
+  <ul style="color: red">
     <% @category.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+      <li style="color: red"><%= message %></li>
     <% end %>
   </ul>
   <% end %>
@@ -14,17 +16,15 @@
     <h5>カテゴリー新規作成</h5><br>
   </div>
 
-  <div class="text-center">
+  <div class="text-center mt-3">
       <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
       <%= f.label :category_name, "カテゴリー名" %>&emsp;
       <p><%= f.text_field :category_name %>&emsp;</p>
         <div class='from-group'>
           <div class='from-content'>
-
-            <%=  f.collection_radio_buttons :type_id, Type.all, :id, :name %>&emsp;
+               <%=  f.collection_radio_buttons :type_id, Type.all, :id, :name %>&emsp;
             <!--f.collection_radio_buttons メソッド名, コレクション名, value値, オプション={}, ブロック引数)-->
-
-            <p><%= f.submit '作成', class: "" %></p>
+            <p><%= f.submit '作成', class: "mt-3 d-grid gap-2 col-3 btn btn-secondary" %></p>
           </div>
         </div>
       <% end %>

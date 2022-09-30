@@ -2,8 +2,6 @@ class Public::UsersController < ApplicationController
 
  before_action :authenticate_user!
 
-
-
  def favorites
   @user = User.find(params[:id])
   favorites = Favorite.where(user_id: @user.id).order(created_at: :desc).pluck(:post_header_id)
@@ -13,7 +11,6 @@ class Public::UsersController < ApplicationController
   @favorite_posts = PostHeader.find(favorites)
   @post_comment = PostComment.new
   # @users = User.where.not(id: current_user.id)
-
  end
 
  def index
@@ -58,7 +55,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "プロフィールを更新しました！"
+      flash[:notice] = "プロフィールを更新しました"
       redirect_to user: :show
     else
       render :edit
@@ -72,7 +69,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(is_deleted: true)
       reset_session
-      redirect_to root_path, notice: "アカウントを削除しました。またのご利用を心よりお待ちしております。"
+      redirect_to root_path, notice: "アカウントを削除しました。またのご利用を心よりお待ちしております"
     end
   end
 

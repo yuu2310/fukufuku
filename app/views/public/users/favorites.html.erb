@@ -1,15 +1,13 @@
 <%= render "public/nav" %>
 <div class="container mt-5">
-  <h4>いいねリスト</h4>
+  <h4>いいねした投稿</h4>
   <div class="row">
-
     <p><% @favorite_posts.each do |post| %></p>
         <div class="col-4 mt-5 border">
           <div>
             <%= link_to post_path(post.id) do %>
               <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;"%>
             <%end%>
-
               <div>
                   <% if post.favorited_by?(current_user) %>
                     <!--favorited_byメソッドはpost_headerモデルで定義している-->
@@ -23,32 +21,31 @@
                   <% end %>
               </div>
           </div>
-
             <% post.post_details.each do |detail| %>
               <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
             <% end %>
-
             <%# post.hash_tags.each do |hash_tag| %>
                 <!--<p>-->
                 <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
                 <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
                 <!--</p>-->
               <%# end %>
-
               <p>
                 <%= render_with_hashtags(post.comment) %>
               <p>
-
-
               <%= link_to user_path(post.user_id) do %>
                 <%= image_tag post.user.get_profile_image("80x80") %>
                 <%= post.user.user_name %>
               <% end %>
-
             <p>投稿日:<%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-
         </div>
     <% end %>
+
   </div>
-  
+  <% if @favorite_posts.count == 0 %>
+      <div class="mt-5 text-center">
+        <p>いいねしている投稿がありません</p>
+      </div>
+  <% end %>
+
 </div>

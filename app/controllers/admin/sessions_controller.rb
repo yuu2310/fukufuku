@@ -24,8 +24,8 @@ class Admin::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    flash[:notice] = "ログアウトしました"
-     admin_about_path
+    flash[:alert] = "ログアウトしました"
+     admin_root_path
   end
 
 

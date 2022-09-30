@@ -1,29 +1,42 @@
 <%= render 'public/nav' %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col text-center">
+      <h2 class="text-success">ログイン</h2>
 
-<h2>Log in</h2>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="text-danger">
+        <%= flash[:alert] %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="field mt-5">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="field mt-3">
+          <%= f.label :password, "パスワード" %><br />
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
+
+        <!--<%# if devise_mapping.rememberable? %>-->
+        <!--  <div class="field">-->
+        <!--    <%#= f.check_box :remember_me %>-->
+        <!--    <%#= f.label :remember_me %>-->
+        <!--  </div>-->
+        <!--<%# end %>-->
+
+        <div class="actions mt-3">
+          <%= f.submit "ログイン" %>
+        </div>
+      <% end %>
+
+      <%#= render "public/shared/links" %>
+      <div class="mt-3">
+        ユーザー登録をお済みでない方はこちらから登録してください<%= link_to "新規登録", new_user_registration_path %>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
 
-  <!--<%# if devise_mapping.rememberable? %>-->
-  <!--  <div class="field">-->
-  <!--    <%#= f.check_box :remember_me %>-->
-  <!--    <%#= f.label :remember_me %>-->
-  <!--  </div>-->
-  <!--<%# end %>-->
-
-  <div class="actions">
-    <%= f.submit "log in" %>
-  </div>
-<% end %>
-
-<%#= render "public/shared/links" %>
-<p>ユーザー登録をお済みでない方はこちらから登録してください<%= link_to "sign up", new_user_registration_path %></p>

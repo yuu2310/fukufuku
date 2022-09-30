@@ -16,15 +16,23 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = PostHeader.new(post_params)
-    @post.user_id = current_user.id
+    @post_header = PostHeader.new(post_params)
+    @post_header.user_id = current_user.id
     #hashtag = extract_hashtag(@post.comment) #パラメーターのcaptionの中よりハッシュタグを抽出
-    if @post.save! #一度投稿を保存
+    if @post_header.save #一度投稿を保存
     #save_hashtag(hashtag,@post) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
-      redirect_to  post_path(@post.id)
+      flash[:notice] = "投稿しました"
+      redirect_to  post_path(@post_header.id)
     else
-      @post_header = PostHeader.new
-      render :new
+      @post_header.post_details.build
+      @categories = Category.all
+      @tops = Category.where(type_id: 1) #whereは条件検索
+      @jakets = Category.where(type_id: 2)
+      @pants = Category.where(type_id: 3)
+      @shoes = Category.where(type_id: 4)
+      @accessories = Category.where(type_id: 5)
+      @accessories_two = Category.where(type_id: 6)
+      render 'public/posts/new'
     end
     # if @post.save
     #   redirect_to  post_path(@post.id)
@@ -95,6 +103,7 @@ class Public::PostsController < ApplicationController
       hashtag = extract_hashtag(@post.comment) #投稿よりハッシュタグを取得
       save_hashtag(hashtag,@post) #ハッシュタグの保存
     end
+    flash[:notice] = "投稿を更新しました"
     redirect_to post_path(@post.id)
   end
 

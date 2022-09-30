@@ -1,16 +1,5 @@
 <%= render 'public/nav' %>
 
-  <% if @post_header.errors.any? %>
-  <div style="color: red">
-    <%= @post_header.errors.count %>件のエラーが発生しました
-  </div>
-    <ul style="color: red">
-      <% @post_header.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-  
 <div class="container">
   <div class="row mt-5">
     <div class="col text-center">
@@ -19,6 +8,17 @@
   </div>
 
   <%= form_with model: @post_header, url: posts_path, local: true, method: :post do |f| %>
+
+    <% if @post_header.errors.any? %>
+      <div style="color: red">
+        <%= @post_header.errors.count %>件のエラーが発生しました
+      </div>
+      <ul style="color: red">
+        <% @post_header.errors.full_messages.each do |message| %>
+          <li>※<%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <div class="mt-3">
       <div class="mb-3 text-center">

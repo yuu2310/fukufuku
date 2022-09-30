@@ -1,20 +1,28 @@
 <%= render 'admin/nav' %>
 <div class="container mt-5">
+    <% if @category.errors.any? %>
+      <div class="message" style="color: red">
+        ※<%=@category.errors.count %>件のエラーが発生しました
+      </div>
+      <ul style="color: red">
+        <% @category.errors.full_messages.each do |message| %>
+          <li style="color: red"><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <h5>カテゴリー編集</h5>
 
+    <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |f| %>
     <div class="text-center">
-         <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |f| %>
-        <div class="mt-5 mb-3">
-            <%= f.text_field :category_name %>
-        </div>
+      <div class="mt-5 mb-3">
+          <%= f.text_field :category_name %>
+      </div>
 
-        <div class="mb-2">
-            <%= f.collection_radio_buttons :type_id, Type.all, :id, :name %>
-        </div>
-
-            <%= f.submit '更新', class: "btn btn-secondary" %>
-
+      <div class="mb-2">
+          <%= f.collection_radio_buttons :type_id, Type.all, :id, :name %>
+      </div>
+      <%= f.submit '更新', class: "btn btn-secondary" %>
     </div>
     <% end %>
 

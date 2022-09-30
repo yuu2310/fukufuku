@@ -1,16 +1,19 @@
 <%= render 'public/nav' %>
 <div class="container">
-    <h2 class="mt-5 mb-5"><%= @user.user_name %>さんのプロフィール</h2>
+    <h2 class="mt-5 mb-5"><%= @user.user_name %>さんのマイページ</h2>
     <div class="row">
         <div class="col-md-4">
-
            <%= image_tag @user.get_profile_image("200x200") %>
-
-          <h5>ユーザー名</h5>
-          <p><%= @user.user_name %></p>
-
-          <p class=text_small><%= link_to @user.followeds.count, followeds_user_path(@user) %>フォロー <%= link_to @user.followers.count, followers_user_path(@user) %> フォロワー</p>
-
+          <h5 class="mt-3">ユーザー名</h5>
+          <%= @user.user_name %>
+          <p class=text_small>
+            <%= link_to followeds_user_path(@user) do %>
+            <%=  @user.followeds.count %>フォロー中
+            <% end %>
+            <%= link_to followers_user_path(@user) do %>
+            <%= @user.followers.count %>フォロワー
+            <% end %>
+          </p>
           <% if @user != current_user %>
             <% if @user.is_followed_by?(current_user) %>
                 <%= link_to user_relationships_path(@user), method: :delete do %>
@@ -22,64 +25,53 @@
               <% end %>
             <% end %>
           <% end %>
-
           <h5>身長</h5>
           <p><%= @user.height %> cm</p>
-
           <h5>性別</h5>
           <p><%= @user.sex %></p>
-
           <h5>メールアドレス</h5>
           <p><%= @user.email %></p>
-
-          <p><%=link_to"いいね一覧", favorites_user_path(@user) %></p>
-
+          <p><%= link_to"いいね一覧", favorites_user_path(@user) %></p>
           <% if @user == current_user %>
-          <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
+          <%= link_to "マイページ編集", edit_user_path(current_user.id) %>
           <% end %>
       </div>
-
       <div class="col-md-8">
-
-          <% @posts.each do |post| %>
-            <%= link_to (image_tag post.get_image("500x400")), post_path(post.id) %>
-
-
-            <div class="text-center ml-5">
-                <% if post.favorited_by?(current_user) %>
-                  <!--favorited_byメソッドはpost_headerモデルで定義している-->
-                  <%= link_to post_favorites_path(post), method: :delete do %>
-                    <span style="color: red;">♥<%= post.favorites.count %></span>
-                  <% end %>
-                <% else %>
-                  <%= link_to post_favorites_path(post), method: :post do %>
-                    ♡<%= post.favorites.count %>
-                  <% end %>
+        <% if @posts.count == 0 %>
+          <div class="text-center">
+            <p><%= @user.user_name %>さんはまだ何も投稿していません</p>
+          </div>
+        <% end %>
+        <% @posts.each do |post| %>
+          <%= link_to (image_tag post.get_image("500x400")), post_path(post.id) %>
+          <div class="text-center ml-5">
+              <% if post.favorited_by?(current_user) %>
+                <!--favorited_byメソッドはpost_headerモデルで定義している-->
+                <%= link_to post_favorites_path(post), method: :delete do %>
+                  <span style="color: red;">♥<%= post.favorites.count %></span>
                 <% end %>
-            </div>
-
-            <% post.post_details.each do |detail| %>
-              <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
-            <%end%>
-
-            <%# post.hash_tags.each do |hash_tag| %>
-              <!--<p>-->
-              <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-              <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
-              <!--</p>-->
-            <%# end %>
-
-              <p>
-                <%= render_with_hashtags(post.comment) %>
-              <p>
-
-
-            <p>投稿日: <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-            <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-
-          <% end %>
-
-        </div>
+              <% else %>
+                <%= link_to post_favorites_path(post), method: :post do %>
+                  ♡<%= post.favorites.count %>
+                <% end %>
+              <% end %>
+          </div>
+          <% post.post_details.each do |detail| %>
+            <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
+          <%end%>
+          <%# post.hash_tags.each do |hash_tag| %>
+            <!--<p>-->
+            <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
+            <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
+            <!--</p>-->
+          <%# end %>
+            <p>
+              <%= render_with_hashtags(post.comment) %>
+            <p>
+          <p>投稿日: <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+          <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+        <% end %>
+      </div>
     </div>
 </div>
 

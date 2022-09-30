@@ -4,7 +4,9 @@ ja:
       user: ユーザー
       category: カテゴリー
       post: 投稿
-      post_detail: 
+      post_detail:
+      type: タイプ
+
 
     attributes:
       user:
@@ -14,14 +16,15 @@ ja:
         sex: 性別
       category:
         category_name: カテゴリー名
-        
+
       post:
         image: 投稿する画像
         comment: 投稿内容
-        
+
       post_detail:
         size: サイズ
-        
+
+
   views:
     pagination:
       first: "&laquo; 最初"
@@ -29,4 +32,3 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
-  

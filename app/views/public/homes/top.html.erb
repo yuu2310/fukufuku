@@ -4,11 +4,13 @@
 
   <div class="row">
     <% @posts.each do |post| %>
-    <div class="col-6 mt-5">
+    <div class="col-6 mt-5 border">
       <div>
-       <%= link_to (image_tag post.get_image("500x300")), post_path(post.id) %>
+        <%= link_to post_path(post.id) do %>
+          <%= image_tag post.get_image("500x300"), style: "margin: 10px auto; display:block; mt-4"%>
+        <%end%>
       </div>
-        <p>
+        <p style="display: flex; justify-content: flex-end;">
           <% if post.favorited_by?(current_user) %>
             <!--favorited_byメソッドはpost_headerモデルで定義している-->
             <%= link_to post_favorites_path(post), method: :delete do %>

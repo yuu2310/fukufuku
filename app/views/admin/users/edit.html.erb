@@ -1,74 +1,75 @@
 <%= render 'admin/nav' %>
 
  <div class="container">
-      <div class="text-center">
-        <div class="row">
-          <div class="col-5 mt-5">
-            <h2><%= @user.user_name %> 様の会員情報編集</h2>
-          </div>
-        </div>
+  <div class="text-center">
+    <div class="row">
+      <div class="col mt-5 text-center">
+        <h2><%= @user.user_name %> さんのプロフィール編集</h2>
       </div>
-
-      <% if @user.errors.any? %>
-        <div class="text-danger message">
-          ※<%= @user.errors.count %>件のエラーが発生しました
-        </div>
-        <ul class="text-danger list-unstyled">
-          <% @user.errors.full_messages.each do |message| %>
-            <li ><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-
-        <table class="table table-borderless my-4">
-          <tbody>
-          <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |user| %>
-
-            <tr>
-              <th scope="row">氏名</th>
-              <td>
-                <%= user.text_field :user_name %>
-              </td>
-            </tr>
-
-           <tr>
-              <th scope="row">メールアドレス</th>
-              <td><%= user.text_field :email %></td>
-            </tr>
-
-            <tr>
-               <th scope="row">身長</th>
-              <td><%= user.number_field :height %></td>
-            </tr>
-
-            <tr>
-               <th scope="row">性別</th>
-              <td>
-
-
-                <%= user.radio_button :sex, '男性' %>
-                <!--f.radio_button(メソッド名, value値, オプション={})-->
-                <%= user.label :sex, '男性', {style: "display: inline-block;"} %>
-
-                <%= user.radio_button :sex, '女性' %>
-                <%= user.label :sex, '女性', {style: "display: inline-block;"} %>
-                </td>
-            </tr>
-
-            <tr>
-              <th scope="row">アカウント状態</th>
-              <td>
-                <%= user.label :is_deleted, '登録中' %>
-                <%= user.radio_button :is_deleted, :false %>
-                <%= user.label :is_deleted, '削除済み' %>
-                <%= user.radio_button :is_deleted, :true %>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-
-            <%= user.submit '変更を保存', class: 'btn btn-success' %>
-
-          <% end %>
     </div>
+  </div>
+
+  <% if @user.errors.any? %>
+    <div class="text-danger message">
+      ※<%= @user.errors.count %>件のエラーが発生しました
+    </div>
+    <ul class="text-danger list-unstyled">
+      <% @user.errors.full_messages.each do |message| %>
+        <li ><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+    <table class="table table-borderless my-4 text-center">
+      <tbody>
+      <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |user| %>
+
+        <tr>
+          <th scope="row">氏名</th>
+          <td>
+            <%= user.text_field :user_name %>
+          </td>
+        </tr>
+
+       <tr>
+          <th scope="row">メールアドレス</th>
+          <td><%= user.text_field :email %></td>
+        </tr>
+
+        <tr>
+           <th scope="row">身長</th>
+          <td><%= user.number_field :height %></td>
+        </tr>
+
+        <tr>
+           <th scope="row">性別</th>
+          <td>
+
+
+            <%= user.radio_button :sex, '男性' %>
+            <!--f.radio_button(メソッド名, value値, オプション={})-->
+            <%= user.label :sex, '男性', {style: "display: inline-block;"} %>
+
+            <%= user.radio_button :sex, '女性' %>
+            <%= user.label :sex, '女性', {style: "display: inline-block;"} %>
+            </td>
+        </tr>
+
+        <tr>
+          <th scope="row">アカウント状態</th>
+          <td>
+            <%= user.label :is_deleted, '登録中' %>
+            <%= user.radio_button :is_deleted, :false %>
+            <%= user.label :is_deleted, '削除済み' %>
+            <%= user.radio_button :is_deleted, :true %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+        <div class="btn_one">
+          <p class="btn_two">
+             <%= user.submit '保存', class: 'btn btn-success' %>
+          </p>
+        </div>
+      <% end %>
+  </div>

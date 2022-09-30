@@ -1,18 +1,18 @@
 <%= render 'public/nav' %>
 
 <% if @user.errors.any? %>
-<div style="color: red">
+<div class="text-center" style="color: red">
   <%= @user.errors.count %>件のエラーが発生しました
 </div>
   <ul style="color: red">
     <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+      <li>※<%= message %></li>
     <% end %>
   </ul>
 <% end %>
 
 <div class="container mt-5">
-    <h3 class="text-center">プロフィール編集</h3>
+    <h3 class="text-center">マイページ編集</h3>
     <%= form_with model: @user, url: user_path(@user.id) do |f| %>
 
     <div class="mt-4 mb-3 text-center">
@@ -61,7 +61,7 @@
 
      <div class="text-center">
         <%= f.submit "保存", class: "btn btn-primary"%>&emsp;
-        <%= link_to "アカウントを削除する", users_unsubscribe_path, class: "btn btn-danger"%>
+        <%= link_to "アカウント削除", users_unsubscribe_path, class: "btn btn-danger"%>
      </div>
   <% end %>
 </div>
