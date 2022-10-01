@@ -4,6 +4,7 @@ class PostHeader < ApplicationRecord
   validates :image, presence: true
   validates :comment, presence: true
 
+  
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_details, dependent: :destroy

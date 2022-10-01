@@ -5,14 +5,8 @@ class Public::PostsController < ApplicationController
 
   def new
     @post_header = PostHeader.new
-    @post_header.post_details.build
-    @categories = Category.all
-    @tops = Category.where(type_id: 1) #whereは条件検索
-    @jakets = Category.where(type_id: 2)
-    @pants = Category.where(type_id: 3)
-    @shoes = Category.where(type_id: 4)
-    @accessories = Category.where(type_id: 5)
-    @accessories_two = Category.where(type_id: 6)
+    @post_header.post_details.build([{},{},{},{},{},{}])
+    make_category
   end
 
   def create
@@ -24,15 +18,8 @@ class Public::PostsController < ApplicationController
       flash[:notice] = "投稿しました"
       redirect_to  post_path(@post_header.id)
     else
-      @post_header.post_details.build
-      @categories = Category.all
-      @tops = Category.where(type_id: 1) #whereは条件検索
-      @jakets = Category.where(type_id: 2)
-      @pants = Category.where(type_id: 3)
-      @shoes = Category.where(type_id: 4)
-      @accessories = Category.where(type_id: 5)
-      @accessories_two = Category.where(type_id: 6)
-      render 'public/posts/new'
+      make_category
+      render :new
     end
     # if @post.save
     #   redirect_to  post_path(@post.id)
@@ -49,12 +36,13 @@ class Public::PostsController < ApplicationController
     #<ActionController::Parameters {"post_header"=>{"comment_cont"=>"123123", "category"=>{"category_id"=>"1"}}, "commit"=>"検索", "controller"=>"public/posts", "action"=>"index"} permitted: false>
     search(params) if params[:post_header].present?
     # @posts = @q.result(distinct: true).order(created_at: "DESC")
-    @tops = Category.where(type_id: 1) #whereは条件検索
-    @jakets = Category.where(type_id: 2)
-    @pants = Category.where(type_id: 3)
-    @shoes = Category.where(type_id: 4)
-    @accessories = Category.where(type_id: 5)
-    @accessories_two = Category.where(type_id: 6)
+    
+    # @tops = Category.where(type_id: 1) #whereは条件検索
+    # @jakets = Category.where(type_id: 2)
+    # @pants = Category.where(type_id: 3)
+    # @shoes = Category.where(type_id: 4)
+    # @accessories = Category.where(type_id: 5)
+    # @accessories_two = Category.where(type_id: 6)
   end
 
   def search(params)
@@ -87,12 +75,13 @@ class Public::PostsController < ApplicationController
   def edit
     @post = PostHeader.find(params[:id])
     @user = @post.user
-    @tops = Category.where(type_id: 1) #whereは条件検索
-    @jakets = Category.where(type_id: 2)
-    @pants = Category.where(type_id: 3)
-    @shoes = Category.where(type_id: 4)
-    @accessories = Category.where(type_id: 5)
-    @accessories_two = Category.where(type_id: 6)
+    make_category
+    # @tops = Category.where(type_id: 1) #whereは条件検索
+    # @jakets = Category.where(type_id: 2)
+    # @pants = Category.where(type_id: 3)
+    # @shoes = Category.where(type_id: 4)
+    # @accessories = Category.where(type_id: 5)
+    # @accessories_two = Category.where(type_id: 6)
   end
 
   def update
@@ -119,4 +108,16 @@ class Public::PostsController < ApplicationController
     params.require(:post_header).permit(:comment, :user_id, :image, post_details_attributes: [:id, :post_header_id, :category_id, :size])
   end
 
+  def make_category
+    @categories = Category.all
+    @tops = Category.where(type_id: 1) #whereは条件検索
+    @jakets = Category.where(type_id: 2)
+    @pants = Category.where(type_id: 3)
+    @shoes = Category.where(type_id: 4)
+    @accessories = Category.where(type_id: 5)
+    @accessories_two = Category.where(type_id: 6)
+    @category_list = [{title: "トップス", obj: @tops},{title: "ジャケット/アウター",obj: @jakets},
+                      {title: "パンツ", obj: @pants},{title: "シューズ",obj: @shoes},{title: "アクセサリー",obj: @accessories},
+                      {title: "アクセサリー2", obj: @accessories_two}]
+  end
 end

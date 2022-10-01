@@ -1,16 +1,13 @@
 <%= render 'public/nav' %>
-
 <div class="container">
   <div class="row mt-5">
     <div class="col text-center">
       <h4>新規投稿</h4>
     </div>
   </div>
-
   <%= form_with model: @post_header, url: posts_path, local: true, method: :post do |f| %>
-
     <% if @post_header.errors.any? %>
-      <div style="color: red">
+      <div class="text-center" style="color: red">
         <%= @post_header.errors.count %>件のエラーが発生しました
       </div>
       <ul style="color: red">
@@ -19,88 +16,30 @@
         <% end %>
       </ul>
     <% end %>
-
     <div class="mt-3">
       <div class="mb-3 text-center">
         <%= f.file_field :image, accept: "image/*" %>
       </div>
-
-      <%= f.fields_for :post_details do |pd_t| %>
+      <%= f.fields_for :post_details do |pd| %>
+      <% pp pd_t.index %>
         <div class="mb-3 text-center">
-          <%= pd_t.label :type_id, "トップス" %>
+          <%= pd.label :type_id, @category_list[pd_t.index][:title] %>
           <div>
-            <%= pd_t.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
-            <%= pd_t.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+            <%= pd.collection_select :category_id, @category_list[pd_t.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
+            <% if pd_t.index != 4 && pd_t.index != 5 %>
+            <%= pd.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+            <% end %>
           </div>
       <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
         </div>
       <% end %>
-
-
-      <%= f.fields_for :post_details do |pd_j| %>
-      <div class="mb-3 text-center">
-        <%= pd_j.label :type_id, "ジャケット/アウター" %>
-        <div>
-          <%= pd_j.collection_select :category_id, @jakets, :id, :category_name, { prompt: "--選択してください--" } %>
-          <%= pd_j.select :size, [["--","--"], ["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
-        </div>
-      </div>
-      <% end %>
-
-
-      <%= f.fields_for :post_details do |pd_p| %>
-      <div class="mb-3 text-center">
-        <%= pd_p.label :type_id, "パンツ" %>
-        <div>
-          <%= pd_p.collection_select :category_id, @pants, :id, :category_name, { prompt: "--選択してください--" }  %>
-          <%= pd_p.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
-        </div>
-      </div>
-      <% end %>
-
-
-      <%= f.fields_for :post_details do |pd_s| %>
-      <div class="mb-3 text-center">
-        <%= pd_s.label :type_id, "シューズ" %>
-        <div>
-          <%= pd_s.collection_select :category_id, @shoes, :id, :category_name, { prompt: "--選択してください--" }  %>
-          <%= pd_s.select :size, [["24cm", "24cm"], ["24.5cm", "24.5cm"], ["25cm", "25cm"],
-          ["25.5cm", "25.5cm"], ["26cm", "26cm"], ["26.5cm", "26.5cm"],
-          ["27cm", "27cm"], ["27.5cm", "27.5cm"], ["28cm", "28cm"], ["28.5cm", "28.5cm"]],
-          include_blank: "--サイズを選択して下さい--", size: 30 %>
-        </div>
-      </div>
-      <% end %>
-
-
-      <%= f.fields_for :post_details do |pd_a| %>
-      <div class="text-center">
-        <%= pd_a.label :type_id, "アクセサリー" %>
-        <div>
-          <%= pd_a.collection_select :category_id, @accessories, :id, :category_name, { prompt: "--選択してください--" }  %>
-        </div>
-      </div>
-      <% end %>
-
-      <%= f.fields_for :post_details do |pd_a_t| %>
-      <div class="text-center">
-        <%= pd_a_t.label :type_id, "アクセサリー2" %>
-        <div>
-          <%= pd_a_t.collection_select :category_id, @accessories_two, :id, :category_name, { prompt: "--選択してください--" }  %>
-        </div>
-      </div>
-      <% end %>
     </div>
-
     <div class="mt-5 mb-5 text-center">
       <p><%= f.text_area :comment, size: "50x20" %></p>
     </div>
-
     <div class="text-center">
       <%= f.submit "投稿", class: "btn btn-success" %>
     </div>
-
   <% end %>
-
 </div>
 

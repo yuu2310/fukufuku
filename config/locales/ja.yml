@@ -14,13 +14,14 @@ ja:
         height: 身長
         email: メールアドレス
         sex: 性別
+
       category:
         category_name: カテゴリー名
 
-      post:
-        image: 投稿する画像
+      post_header:
+        image: 画像
         comment: 投稿内容
-
+        
       post_detail:
         size: サイズ
 
