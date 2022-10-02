@@ -9,7 +9,6 @@ class User < ApplicationRecord
   validates :height, presence: true
   validates :sex, presence: true
 
-
   # フォローする側から中間テーブルへのアソシエーション
   has_many :relationships, foreign_key: :followed_id
   # フォローする側からフォローされたユーザを取得する
@@ -26,14 +25,11 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(followed_id: user.id).present?
   end
 
-
   has_many :post_headers, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
 
-
   has_one_attached :profile_image
-
 
   def self.guest
     find_or_create_by!(email: 'guest@sample.com') do |user|
@@ -46,9 +42,6 @@ class User < ApplicationRecord
     end
   end
 
-
-
-
   def get_profile_image(size)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_user.png')
@@ -57,4 +50,3 @@ class User < ApplicationRecord
     profile_image.variant(resize: size).processed
   end
 end
-

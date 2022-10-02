@@ -20,11 +20,6 @@ class Public::PostsController < ApplicationController
       make_category
       render :new
     end
-    # if @post.save
-    #   redirect_to  post_path(@post.id)
-    # elsif
-    #   render :new
-    # end
   end
 
   def index
@@ -32,16 +27,8 @@ class Public::PostsController < ApplicationController
     @hashtags = HashTag.all
     @post_hashtags = PostHashTag.all
     @post_objects = creating_structures(posts: PostHeader.all,post_hashtags: @post_hashtags,hashtags: @hashtags)
-    #<ActionController::Parameters {"post_header"=>{"comment_cont"=>"123123", "category"=>{"category_id"=>"1"}}, "commit"=>"検索", "controller"=>"public/posts", "action"=>"index"} permitted: false>
     search(params) if params[:post_header].present?
-    # @posts = @q.result(distinct: true).order(created_at: "DESC")
     make_category
-    # @tops = Category.where(type_id: 1) #whereは条件検索
-    # @jakets = Category.where(type_id: 2)
-    # @pants = Category.where(type_id: 3)
-    # @shoes = Category.where(type_id: 4)
-    # @accessories = Category.where(type_id: 5)
-    # @accessories_two = Category.where(type_id: 6)
   end
 
   def search(params)
@@ -75,12 +62,6 @@ class Public::PostsController < ApplicationController
     @post = PostHeader.find(params[:id])
     @user = @post.user
     make_category
-    # @tops = Category.where(type_id: 1) #whereは条件検索
-    # @jakets = Category.where(type_id: 2)
-    # @pants = Category.where(type_id: 3)
-    # @shoes = Category.where(type_id: 4)
-    # @accessories = Category.where(type_id: 5)
-    # @accessories_two = Category.where(type_id: 6)
   end
 
   def update
@@ -100,6 +81,7 @@ class Public::PostsController < ApplicationController
     @post.destroy
     redirect_to user_path(current_user)
   end
+
 
   private
 

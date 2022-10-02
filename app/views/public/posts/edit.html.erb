@@ -2,10 +2,9 @@
 <div class="container mt-5 text-center">
   <h3>投稿編集</h3>
   <div class="row">
-    <div class="col">
+    <div class="col-6">
       <div class="mb-3">
         <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
-
             <% if @post.errors.any? %>
               <div class="text-center" style="color: red">
                 <%= @post.errors.count %>件のエラーが発生しました
@@ -23,6 +22,16 @@
           <p><%= f.submit "更新", class: "btn btn-success"  %></p>
         <% end %>
       </div>
+      <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
+        <% @post.hash_tags.each do |hash_tag| %>
+        <% end %>
+        <div>
+          <%= f.text_area :comment, size: "60x20" %>
+          <%= f.submit "更新", class: "btn btn-success"  %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-6 mt-5">
       <% @post.post_details.each do |post_detail| %>
         <%= form_with model: post_detail, url: post_detail_path(post_detail), method: :patch do |f| %>
           <% if post_detail.category.type_id == 1 %>
@@ -54,28 +63,18 @@
               include_blank: "--サイズを選択して下さい--", size: 30 %>
             </div>
           <% elsif post_detail.category.type_id == 5 %>
-            <div>
+            <div class="mb-3">
               <%= f.label :type_id, "アクセサリー" %>
               <%= f.collection_select :category_id, @accessories, :id, :category_name, { prompt: "--選択してください--" }  %>
             </div>
           <% elsif post_detail.category.type_id == 6 %>
-            <div>
+            <div class="mb-3">
               <%= f.label :type_id, "アクセサリー2" %>
               <%= f.collection_select :category_id, @accessories_two, :id, :category_name, { prompt: "--選択してください--" }  %>
             </div>
           <% end %>
           <p><%= f.submit "更新", class: "btn btn-success" %></p>
         <% end %>
-      <% end %>
-      <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
-        <% @post.hash_tags.each do |hash_tag| %>
-          <p>
-          <%#= f.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-          <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
-          </p>
-        <% end %>
-        <%= f.text_area :comment %>
-        <%= f.submit "更新", class: "btn btn-success"  %>
       <% end %>
     </div>
   </div>

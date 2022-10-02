@@ -1,66 +1,49 @@
 <%= render 'public/nav' %>
-
   <div class="container">
     <h2 class="mt-5 text-center text-success">ユーザ登録</h2>
     
     <div style="color: red;">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "public/shared/error_messages", resource: resource %>
-    </div>
-
-    
-
-      <div class="form-group text-center mt-5">
-        <%= f.file_field :profile_image, accept: "image/*" %>
-      </div>
-
-      <div class="form-group text-center">
-        <%= f.label :user_name, "名前" %><br />
-        <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name" %>
-      </div>
-
-
-      <div class="form-group text-center">
-        <%= f.label :height, "身長" %><br />
-        <%= f.number_field :height, autocomplete: "height"%>cm
-      </div>
-
-      <div class="form-group text-center">
-        <%= f.label :sex, "性別" %><br>
-
-        <%= f.radio_button :sex, '男性' %>
-        <!--f.radio_button(メソッド名, value値, オプション={})-->
-        <%= f.label :sex, '男性', {style: "display: inline-block;"} %>&emsp;
-
-        <%= f.radio_button :sex, '女性' %>
-        <%= f.label :sex, '女性', {style: "display: inline-block;"} %>
-      </div>
-
-
-
-      <div class="field text-center">
-        <%= f.label :"メールアドレス" %><br />
-        <%= f.text_field :email, autocomplete: "email" %>
-      </div>
-
-      <div class="field text-center">
-        <%= f.label :"パスワード" %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> 文字以上)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
-
-      <div class="field text-center">
-        <%= f.label :"パスワード (確認用)"%><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
-
-      <div class="actions text-center mt-4">
-        <%= f.submit "登録", class: "btn btn-success" %>
-      </div>
-    <% end %>
-
+          <%= render "public/shared/error_messages", resource: resource %>
+        </div>
+        <div class="form-group text-center mt-5">
+          <%= f.file_field :profile_image, accept: "image/*" %>
+        </div>
+        <div class="form-group text-center">
+          <%= f.label :user_name, "名前" %><br />
+          <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name" %>
+        </div>
+        <div class="form-group text-center">
+          <%= f.label :height, "身長" %><br />
+          <%= f.number_field :height, autocomplete: "height"%>cm
+        </div>
+        <div class="form-group text-center">
+          <%= f.label :sex, "性別" %><br>
+          <%= f.radio_button :sex, '男性' %>
+          <!--f.radio_button(メソッド名, value値, オプション={})-->
+          <%= f.label :sex, '男性', {style: "display: inline-block;"} %>&emsp;
+          <%= f.radio_button :sex, '女性' %>
+          <%= f.label :sex, '女性', {style: "display: inline-block;"} %>
+        </div>
+        <div class="field text-center">
+          <%= f.label :"メールアドレス" %><br />
+          <%= f.text_field :email, autocomplete: "email" %>
+        </div>
+        <div class="field text-center">
+          <%= f.label :"パスワード" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+        <div class="field text-center">
+          <%= f.label :"パスワード (確認用)"%><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+        <div class="actions text-center mt-4">
+          <%= f.submit "登録", class: "btn btn-success" %>
+        </div>
+      <% end %>
     <%#= render "public/shared/links" %>
     <div class="mt-3" style="text-align: center;">ユーザー登録済みの方はこちらからログインしてください</div>
     <div  style="text-align: center;"><%= link_to "ログイン", new_user_session_path %></div>

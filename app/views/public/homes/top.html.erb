@@ -1,42 +1,38 @@
 <%= render 'public/nav' %>
-<div class="container mt-5">
-  <h1>新着投稿</h1>
-
-  <div class="row">
-    <% @posts.each do |post| %>
-    <div class="col-6 mt-5 border">
-      <div>
-        <%= link_to post_path(post.id) do %>
-          <%= image_tag post.get_image("500x300"), style: "margin: 10px auto; display:block; mt-4"%>
-        <%end%>
-      </div>
-        <p style="display: flex; justify-content: flex-end;">
-          <% if post.favorited_by?(current_user) %>
-            <!--favorited_byメソッドはpost_headerモデルで定義している-->
-            <%= link_to post_favorites_path(post), method: :delete do %>
-              <span style="color: red;">♥<%= post.favorites.count %></span>
+  <div class="container mt-5">
+    <h1>新着投稿</h1>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-6 mt-5 border">
+          <div>
+            <%= link_to post_path(post.id) do %>
+              <%= image_tag post.get_image("500x300"), style: "margin: 10px auto; display:block; mt-4"%>
+            <%end%>
+          </div>
+          <p style="display: flex; justify-content: flex-end;">
+            <% if post.favorited_by?(current_user) %>
+              <!--favorited_byメソッドはpost_headerモデルで定義している-->
+              <%= link_to post_favorites_path(post), method: :delete do %>
+                <span style="color: red;">♥<%= post.favorites.count %></span>
+              <% end %>
+            <% else %>
+              <%= link_to post_favorites_path(post), method: :post do %>
+                ♡<%= post.favorites.count %>
+              <% end %>
             <% end %>
-          <% else %>
-            <%= link_to post_favorites_path(post), method: :post do %>
-              ♡<%= post.favorites.count %>
-            <% end %>
+          </p>
+          <% post.post_details.each do |detail| %>
+            <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
           <% end %>
-        </p>
-
-        <% post.post_details.each do |detail| %>
-          <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
-        <% end %>
-
-        <p>
-          <%= render_with_hashtags(post.comment) %>
-        <p>
-
-        <%= link_to user_path(post.user_id) do %>
-          <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
-        <% end %>
-        <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-    </div>
-    <% end %>
+          <p>
+            <%= render_with_hashtags(post.comment) %>
+          <p>
+          <%= link_to user_path(post.user_id) do %>
+            <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
+          <% end %>
+          <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        </div>
+      <% end %>
       <%= paginate @posts %><%= link_to "投稿一覧を見る", posts_path %>
+    </div>
   </div>
-</div>

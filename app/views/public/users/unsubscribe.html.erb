@@ -1,17 +1,14 @@
 <%= render 'public/nav' %>
-<div class="container mt-5">
- <div class="text-center mb-5">
-  <h2>アカウント削除</h2>
-  <div class="mt-5">
+ <div class="container mt-5">
+  <div class="text-center mb-5">
+   <h2>アカウント削除</h2>
+   <div class="mt-5">
     アカウントを削除をされますと、全てのサービスがご利用いただけなくなり過去に投稿されたデータは削除されます。<br>
     再度ご利用をいただく場合には、新規登録のお手続きが必要になります。<br>
+   </div>
+  </div>
+  <div class="text-center">
+   <%= link_to "削除しない", user_path(current_user), class: "btn btn-primary" %>
+   <%= link_to "削除する", users_withdraw_path, method: :patch, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
   </div>
  </div>
-
- <div class="text-center">
-  <%= link_to "削除しない", user_path(current_user), class: "btn btn-primary" %>
-  <%= link_to "削除する", users_withdraw_path, method: :patch, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-
- </div>
-
-</div>

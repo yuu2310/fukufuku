@@ -12,18 +12,15 @@
     <% end %>
 
     <h5>カテゴリー編集</h5>
-
     <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |f| %>
-    <div class="text-center">
-      <div class="mt-5 mb-3">
+      <div class="text-center">
+        <div class="mt-5 mb-3">
           <%= f.text_field :category_name %>
-      </div>
-
-      <div class="mb-2">
+        </div>
+        <div class="mb-2">
           <%= f.collection_radio_buttons :type_id, Type.all, :id, :name %>
+        </div>
+        <%= f.submit '更新', class: "btn btn-secondary" %>
       </div>
-      <%= f.submit '更新', class: "btn btn-secondary" %>
-    </div>
     <% end %>
-
 </div>

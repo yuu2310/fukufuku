@@ -1,23 +1,21 @@
 <%= render 'admin/nav' %>
 <div class='container mt-5'>
-
   <% if @category.errors.any? %>
-  <div class="message" style="color: red">
-    ※<%=@category.errors.count %>件のエラーが発生しました
-  </div>
-  <ul style="color: red">
-    <% @category.errors.full_messages.each do |message| %>
-      <li style="color: red"><%= message %></li>
-    <% end %>
-  </ul>
+    <div class="message" style="color: red">
+      ※<%=@category.errors.count %>件のエラーが発生しました
+    </div>
+    <ul style="color: red">
+      <% @category.errors.full_messages.each do |message| %>
+        <li style="color: red"><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
 
   <div class="text-center">
     <h5>カテゴリー新規作成</h5><br>
   </div>
-
   <div class="text-center mt-3">
-      <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
+    <%= form_with model: @category, url: admin_categories_path, method: :post do |f| %>
       <%= f.label :category_name, "カテゴリー名" %>&emsp;
       <p><%= f.text_field :category_name %>&emsp;</p>
         <div class='from-group'>
@@ -27,33 +25,23 @@
             <p><%= f.submit '作成', class: "mt-3 d-grid gap-2 col-3 btn btn-secondary" %></p>
           </div>
         </div>
-      <% end %>
+    <% end %>
   </div><br>
 
-
-
-
   <h5>カテゴリー一覧</h5>
-
   <table class="table">
     <% Type.all.each do |type| %>
-    <thead>
-
-      <tr>
-        <th scope="col"><%= type.name %></th>
-      </tr>
-    </thead>
-
-      <% type.categories.each do |category| %>
-      <tbody>
+      <thead>
         <tr>
-
+          <th scope="col"><%= type.name %></th>
         </tr>
-      </tbody>
-        <td><%= category.category_name %></td>
-        <td><%= link_to "編集", edit_admin_category_path(category.id), class: "btn-success" %></td>
-        <td><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn-danger"  %></td>
-      </tbody>
+      </thead>
+      <% type.categories.each do |category| %>
+        <tbody>
+          <td><%= category.category_name %></td>
+          <td><%= link_to "編集", edit_admin_category_path(category.id), class: "btn-success" %></td>
+          <td><%= link_to "削除", admin_category_path(category.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn-danger"  %></td>
+        </tbody>
       <% end %>
     <% end %>
   </table>

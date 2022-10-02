@@ -1,63 +1,45 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-light border-bottom">
     <div class="container">
+    <% if user_signed_in? %>
+     <button class="btn btn-outline-secondary" type="button"><%= link_to "fukufuku", root_path, class: 'nav-link text-dark'  %></button>
+     <ul class="navbar-nav ml-auto">
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規投稿', new_post_path, class: 'nav-link text-dark'   %></button>
+        </li>
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to 'マイページ', user_path('my_page'), class: 'nav-link text-dark'  %></button>
+        </li>
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to 'ユーザー一覧', users_path, class: 'nav-link text-dark'  %></button>
+        </li>
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to '投稿一覧', posts_path, class: 'nav-link text-dark'  %></button>
+        </li>
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark'  %></button>
+        </li>
+      </ul>
+    <% else %>
+      <button class="btn btn-outline-secondary" type="button"><%= link_to "fukufuku", about_path, class: 'nav-link text-dark'  %></button>
+      <ul class="navbar-nav ml-auto">
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"> <%= link_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'nav-link text-dark' %></button>
+        </li>
 
-        <% if user_signed_in? %>
-         <button class="btn btn-outline-secondary" type="button"><%= link_to "fukufuku", root_path, class: 'nav-link text-dark'  %></button>
-         <ul class="navbar-nav ml-auto">
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規登録',  new_user_registration_path, class: 'nav-link text-dark'  %></button>
+        </li>
 
-            <li class="mr-2">
-              <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規投稿', new_post_path, class: 'nav-link text-dark'   %></button>
-            </li>
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link text-dark'  %></button>
+        </li>
 
-            <li class="mr-2">
-              <button class="btn btn-outline-secondary" type="button"><%= link_to 'マイページ', user_path('my_page'), class: 'nav-link text-dark'  %></button>
-            </li>
-
-            <li class="mr-2">
-              <button class="btn btn-outline-secondary" type="button"><%= link_to 'ユーザー一覧', users_path, class: 'nav-link text-dark'  %></button>
-            </li>
-
-            <li class="mr-2">
-              <button class="btn btn-outline-secondary" type="button"><%= link_to '投稿一覧', posts_path, class: 'nav-link text-dark'  %></button>
-            </li>
-
-            <li class="mr-2">
-              <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark'  %></button>
-            </li>
-
-          </ul>
-
-           <% else %>
-            <button class="btn btn-outline-secondary" type="button"><%= link_to "fukufuku", about_path, class: 'nav-link text-dark'  %></button>
-          <ul class="navbar-nav ml-auto">
-
-              <!--<li class="mr-3">-->
-              <!--  <button class="btn btn-outline-secondary" type="button"><%#= link_to 'About', class: 'nav-link text-dark'  %></button>-->
-              <!--</li>-->
-
-
-
-               <li class="mr-2">
-                <button class="btn btn-outline-secondary" type="button"> <%= link_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'nav-link text-dark' %></button>
-              </li>
-
-              <li class="mr-2">
-                <button class="btn btn-outline-secondary" type="button"><%= link_to  '新規登録',  new_user_registration_path, class: 'nav-link text-dark'  %></button>
-              </li>
-
-              <li class="mr-2">
-                <button class="btn btn-outline-secondary" type="button"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link text-dark'  %></button>
-              </li>
-
-              <li class="mr-2">
-                <button class="btn btn-outline-secondary" type="button"><%= link_to  '管理者側ログインへ', new_admin_session_path, class: 'nav-link text-dark'  %></button>
-              </li>
-
-          </ul>
-
-            <% end %>
-
+        <li class="mr-2">
+          <button class="btn btn-outline-secondary" type="button"><%= link_to  '管理者側ログインへ', new_admin_session_path, class: 'nav-link text-dark'  %></button>
+        </li>
+      </ul>
+    <% end %>
     <div>
   </nav>
 </header>

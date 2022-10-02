@@ -7,13 +7,10 @@ class Public::PostDetailsController < ApplicationController
   end
   
   
-
   private
 
   def post_params
     params.require(:post_detail).permit(:id, :post_header_id, :category_id, :size)
   end
-
-
 
 end

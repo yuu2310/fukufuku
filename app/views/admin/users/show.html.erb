@@ -7,7 +7,6 @@
           <h2><%= @user.user_name %> さんのプロフィール</h2>
         </div>
       </div>
-
       <div class="row">
         <table class="table mt-3">
           <tbody>
@@ -48,13 +47,10 @@
           </tbody>
         </table>
       </div>
-
-
       <div class="row">
         <div class="col-12 mt-3">
           <%= link_to '編集する', edit_admin_user_path(@user.id), class: 'btn btn-success mr-3' %>
         </div>
       </div>
-
     </div>
   </div>

@@ -1,90 +1,70 @@
 <%= render 'public/nav' %>
-<div class="container mt-5">
-  <h1>投稿一覧</h1>
-
-  <%= form_with model: @posts, url: {controller: 'public/posts', action: 'index' }, method: :get do  |f| %>
-    <div class="row justify-content-center">
-      <div class="mr-5">
-        <%= f.label :comment, "キーワード" %>
-        <%= f.search_field :comment %>
-      </div>
-      <div class="mr-4">
-        <%= f.label :category, "カテゴリー一覧" %>
-        <%= f.fields_for :category do |category| %>
-          <%= category.collection_select :category_id, Category.all, :id, :category_name, { prompt: "--選択してください--" }  %>
-          <%#= type.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
-          <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
-        <% end %>
-      </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-        <%= f.submit "検索", class: "d-grid gap-2 col-2 btn btn-secondary" %>
-    </div>
-  <% end %>
-
-  <div class="row">
-    <% @posts.each do |post| %>
-    <div class="col-4 mt-5 border">
-      <%= link_to post_path(post.id) do %>
-        <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;"%>
-      <%end%>
-        <p style="display: flex; justify-content: flex-end;">
-          <% if post.favorited_by?(current_user) %>
-            <!--favorited_byメソッドはpost_headerモデルで定義している-->
-            <%= link_to post_favorites_path(post), method: :delete do %>
-              <span style="color: red;">♥<%= post.favorites.count %></span>
-            <% end %>
-          <% else %>
-            <%= link_to post_favorites_path(post), method: :post do %>
-              ♡<%= post.favorites.count %>
-            <% end %>
+  <div class="container mt-5">
+    <h1>投稿一覧</h1>
+    <%= form_with model: @posts, url: {controller: 'public/posts', action: 'index' }, method: :get do  |f| %>
+      <div class="row justify-content-center">
+        <div class="mr-5">
+          <%= f.label :comment, "キーワード" %>
+          <%= f.search_field :comment %>
+        </div>
+        <div class="mr-4">
+          <%= f.label :category, "カテゴリー一覧" %>
+          <%= f.fields_for :category do |category| %>
+            <%= category.collection_select :category_id, Category.all, :id, :category_name, { prompt: "--選択してください--" }  %>
+            <%#= type.collection_select :category_id, @tops, :id, :category_name, { prompt: "--選択してください--" }  %>
+            <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
           <% end %>
-        </p>
-
-        <% post.post_details.each do |detail| %>
-          <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
-        <% end %>                                                                           <!--ここのsizeはカラムのsize-->
-
-        <%# post.hash_tags.each do |hash_tag| %>
-          <!--<p>-->
-          <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-          <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
-          <!--</p>-->
-        <%# end %>
-
-        <p>
-          <%= render_with_hashtags(post.comment) %>
-        <p>
-
-        <%= link_to user_path(post.user_id) do %>
-          <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
-        <% end %>
-        <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-
-    </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <%= f.submit "検索", class: "d-grid gap-2 col-2 btn btn-secondary" %>
+      </div>
     <% end %>
-
-
-      <% if @posts.count == 0 %>
-       <p>検索結果がありませんでした</p>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-4 mt-5 border">
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;"%>
+          <%end%>
+            <p style="display: flex; justify-content: flex-end;">
+              <% if post.favorited_by?(current_user) %>
+                <!--favorited_byメソッドはpost_headerモデルで定義している-->
+                <%= link_to post_favorites_path(post), method: :delete do %>
+                  <span style="color: red;">♥<%= post.favorites.count %></span>
+                <% end %>
+              <% else %>
+                <%= link_to post_favorites_path(post), method: :post do %>
+                  ♡<%= post.favorites.count %>
+                <% end %>
+              <% end %>
+            </p>
+            <% post.post_details.each do |detail| %>
+              <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
+            <% end %>                                                                           <!--ここのsizeはカラムのsize-->
+            <p>
+              <%= render_with_hashtags(post.comment) %>
+            <p>
+            <%= link_to user_path(post.user_id) do %>
+              <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
+            <% end %>
+            <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        </div>
       <% end %>
-
+      <% if @posts.count == 0 %>
+        <p>検索結果がありませんでした</p>
+      <% end %>
+    </div>
+      <%= paginate @posts %>
   </div>
-
-    <%= paginate @posts %>
-
-      <!--失敗したコード-->
-
-      <!--<%#= post.post_details.size %>-->
-      <!--ここのsizeはrubyが持っているメソッドで配列の個数を数えてくれる-->
-
-      <!--<h4>トップス</h4>-->
-      <!--<h4>ジャケット/アウター</h4>-->
-      <!--<%#= post.post_details.size %>-->
-      <!--<h4>パンツ</h4>-->
-      <!--<%#= post.post_details.size %>-->
-      <!--<h4>シューズ</h4>-->
-      <!--<%#= post.post_details.size %>-->
-      <!--<p><%#= post.comment %></p>-->
-      <%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
-</div>
+    <!--失敗したコード-->
+    <!--<%#= post.post_details.size %>-->
+    <!--ここのsizeはrubyが持っているメソッドで配列の個数を数えてくれる-->
+    <!--<h4>トップス</h4>-->
+    <!--<h4>ジャケット/アウター</h4>-->
+    <!--<%#= post.post_details.size %>-->
+    <!--<h4>パンツ</h4>-->
+    <!--<%#= post.post_details.size %>-->
+    <!--<h4>シューズ</h4>-->
+    <!--<%#= post.post_details.size %>-->
+    <!--<p><%#= post.comment %></p>-->
+    <%#= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>

@@ -1,45 +1,45 @@
 <%= render 'public/nav' %>
-<div class="container">
-  <div class="row mt-5">
-    <div class="col text-center">
-      <h4>新規投稿</h4>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col text-center">
+        <h4>新規投稿</h4>
+      </div>
     </div>
-  </div>
-  <%= form_with model: @post_header, url: posts_path, local: true, method: :post do |f| %>
-    <% if @post_header.errors.any? %>
-      <div class="text-center" style="color: red">
-        <%= @post_header.errors.count %>件のエラーが発生しました
-      </div>
-      <ul style="color: red">
-        <% @post_header.errors.full_messages.each do |message| %>
-          <li>※<%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    <div class="mt-3">
-      <div class="mb-3 text-center">
-        <%= f.file_field :image, accept: "image/*" %>
-      </div>
-      <%= f.fields_for :post_details do |pd| %>
-      <% pp pd.index %>
-        <div class="mb-3 text-center">
-          <%= pd.label :type_id, @category_list[pd.index][:title] %>
-          <div>
-            <%= pd.collection_select :category_id, @category_list[pd.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
-            <% if pd.index != 4 && pd.index != 5 %>
-            <%= pd.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
-            <% end %>
-          </div>
-      <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
+    <%= form_with model: @post_header, url: posts_path, local: true, method: :post do |f| %>
+      <% if @post_header.errors.any? %>
+        <div class="text-center" style="color: red">
+          <%= @post_header.errors.count %>件のエラーが発生しました
         </div>
+        <ul style="color: red">
+          <% @post_header.errors.full_messages.each do |message| %>
+            <li>※<%= message %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </div>
-    <div class="mt-5 mb-5 text-center">
-      <p><%= f.text_area :comment, size: "50x20" %></p>
-    </div>
-    <div class="text-center">
-      <%= f.submit "投稿", class: "btn btn-success" %>
-    </div>
-  <% end %>
-</div>
+      <div class="mt-3">
+        <div class="mb-3 text-center">
+          <%= f.file_field :image, accept: "image/*" %>
+        </div>
+        <%= f.fields_for :post_details do |pd| %>
+          <%# pp pd.index %>
+          <div class="mb-3 text-center">
+            <%= pd.label :type_id, @category_list[pd.index][:title] %>
+            <div>
+              <%= pd.collection_select :category_id, @category_list[pd.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
+              <% if pd.index != 4 && pd.index != 5 %>
+              <%= pd.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+              <% end %>
+            </div>
+          <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-5 mb-5 text-center">
+        <p><%= f.text_area :comment, size: "50x20" %></p>
+      </div>
+      <div class="text-center">
+        <%= f.submit "投稿", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
 

@@ -1,10 +1,6 @@
 <%= render 'admin/nav' %>
 <div class="container mt-5">
-
     <h3>登録ユーザー一覧</h3>
-
-
-
     <table class="table mt-5">
       <thead>
         <tr class="item">
@@ -16,25 +12,24 @@
           <th scope="col">アカウント状態</th>
         </tr>
       </thead>
-
       <tbody>
         <% @users.each do |user| %>
-        <tr>
-          <td><%= user.id %></td>
-          <td><%= link_to user.user_name, admin_user_path(user.id) %></td>
-          <td><%= user.email %></td>
-          <td><%=user.height %> cm</td>
-          <td><%=user.sex %></td>
-          <td>
-          <% if user.is_deleted %>
-              <%= '削除済み' %>
-          <% else %>
-            <p class="text-success">
-              <%= '登録中' %>
-            </p>
-          <% end %>
-          </td>
-        </tr>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= link_to user.user_name, admin_user_path(user.id) %></td>
+            <td><%= user.email %></td>
+            <td><%=user.height %> cm</td>
+            <td><%=user.sex %></td>
+            <td>
+              <% if user.is_deleted %>
+                  <%= '削除済み' %>
+              <% else %>
+                <p class="text-success">
+                  <%= '登録中' %>
+                </p>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
       </tbody>
     </table>

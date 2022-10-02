@@ -1,6 +1,5 @@
 ja:
   activerecord:
-
     models: #モデル名
       user: ユーザー
       category: カテゴリー
@@ -9,7 +8,6 @@ ja:
       type: タイプ
 
     attributes:
-
       user:
         user_name: ユーザー名
         height: 身長
@@ -28,8 +26,6 @@ ja:
       post_detail:
         size: サイズ
         category:
-          # required: "The category must be specified."
-
 
   views:
     pagination:

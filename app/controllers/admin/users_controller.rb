@@ -23,7 +23,7 @@ class Admin::UsersController < ApplicationController
   end
 
 
-   private
+  private
 
   def user_params
     params.require(:user).permit(:email, :encrypted_password, :user_name, :height, :sex, :is_deleted)

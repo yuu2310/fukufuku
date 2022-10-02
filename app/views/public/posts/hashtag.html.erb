@@ -1,18 +1,12 @@
 <%= render 'public/nav' %>
-
   <div class="container mt-5">
-
     <h2>ハッシュタグ #<%= @tag.name %></h2>
-
     <div class="row">
       <% @posts.each do |post| %>
-      <div class="col-4 mt-5 border">
-          <%#= link_to (image_tag post.get_image("500x300")), post_path(post.id),  %>
-
+        <div class="col-4 mt-5 border">
           <%= link_to post_path(post.id) do %>
-          <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;" %>
+            <%= image_tag post.get_image("350x200"), style: "margin: 10px auto; display:block;" %>
           <% end %>
-
           <p style="display: flex; justify-content: flex-end;">
             <% if post.favorited_by?(current_user) %>
               <!--favorited_byメソッドはpost_headerモデルで定義している-->
@@ -25,30 +19,17 @@
               <% end %>
             <% end %>
           </p>
-
           <% post.post_details.each do |detail| %>
             <p><%= detail.category.type.name %>・・・・・<%= detail.category.category_name %>  <%= detail.size %></p>
           <% end %>
-
           <p>
             <%= render_with_hashtags(post.comment) %>
-          <p>
-
-          <%# post.hash_tags.each do |hash_tag| %>
-            <!--<p>-->
-            <%#= post.comment.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") %>
-            <%#= link_to "##{hash_tag.name}", hashtag_path(hash_tag.id) %>
-            <!--</p>-->
-          <%# end %>
-
+          </p>
           <%= link_to user_path(post.user_id) do %>
             <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
           <% end %>
           <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-      </div>
+        </div>
       <% end %>
-
     </div>
-
-
-</div>
+  </div>
