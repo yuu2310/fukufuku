@@ -12,7 +12,6 @@ class Public::PostsController < ApplicationController
   def create
     @post_header = PostHeader.new(post_params)
     @post_header.user_id = current_user.id
-    #hashtag = extract_hashtag(@post.comment) #パラメーターのcaptionの中よりハッシュタグを抽出
     if @post_header.save #一度投稿を保存
     #save_hashtag(hashtag,@post) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
       flash[:notice] = "投稿しました"
@@ -36,7 +35,7 @@ class Public::PostsController < ApplicationController
     #<ActionController::Parameters {"post_header"=>{"comment_cont"=>"123123", "category"=>{"category_id"=>"1"}}, "commit"=>"検索", "controller"=>"public/posts", "action"=>"index"} permitted: false>
     search(params) if params[:post_header].present?
     # @posts = @q.result(distinct: true).order(created_at: "DESC")
-    
+    make_category
     # @tops = Category.where(type_id: 1) #whereは条件検索
     # @jakets = Category.where(type_id: 2)
     # @pants = Category.where(type_id: 3)
@@ -46,11 +45,11 @@ class Public::PostsController < ApplicationController
   end
 
   def search(params)
-    @posts = PostHeader.joins(post_details: {category: :type})
+    @posts = PostHeader.joins(post_details: {category: :type}).distinct
     # コメント検索
     @posts = @posts.where('comment LIKE ?', "%#{params[:post_header][:comment]}%").distinct if params[:post_header][:comment].present?
     # カテゴリー検索
-    @posts = @posts.merge(PostDetail.where('category_id like ?', params[:post_header][:category][:category_id])) if params[:post_header][:category][:category_id].present?
+    @posts = @posts.merge(PostDetail.where('category_id like ?', params[:post_header][:category][:category_id])).distinct if params[:post_header][:category][:category_id].present?
     @posts = @posts.page(params[:page]).per(6)
   end
 

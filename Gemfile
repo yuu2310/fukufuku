@@ -72,3 +72,5 @@ gem 'kaminari'
 gem "enum_help"
 
 gem "rails-i18n"
+
+gem 'pry-rails'

@@ -21,12 +21,12 @@
         <%= f.file_field :image, accept: "image/*" %>
       </div>
       <%= f.fields_for :post_details do |pd| %>
-      <% pp pd_t.index %>
+      <% pp pd.index %>
         <div class="mb-3 text-center">
-          <%= pd.label :type_id, @category_list[pd_t.index][:title] %>
+          <%= pd.label :type_id, @category_list[pd.index][:title] %>
           <div>
-            <%= pd.collection_select :category_id, @category_list[pd_t.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
-            <% if pd_t.index != 4 && pd_t.index != 5 %>
+            <%= pd.collection_select :category_id, @category_list[pd.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
+            <% if pd.index != 4 && pd.index != 5 %>
             <%= pd.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
             <% end %>
           </div>

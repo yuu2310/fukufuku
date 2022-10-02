@@ -1,10 +1,10 @@
 class PostHeader < ApplicationRecord
+
   has_one_attached :image
 
   validates :image, presence: true
   validates :comment, presence: true
 
-  
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_details, dependent: :destroy
@@ -20,7 +20,6 @@ class PostHeader < ApplicationRecord
       favorites.exists?(user_id: user.id)
     end
   end
-
 
    #DBへのコミット直前に実施する
   after_create do
@@ -43,8 +42,6 @@ class PostHeader < ApplicationRecord
       post.hash_tags << tag
     end
   end
-
-
 
   def get_image(size)
     unless image.attached?

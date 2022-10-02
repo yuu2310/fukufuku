@@ -1,29 +1,34 @@
 ja:
   activerecord:
+
     models: #モデル名
       user: ユーザー
       category: カテゴリー
-      post: 投稿
-      post_detail:
+      post_header: 投稿
+      post_detail: 投稿詳細
       type: タイプ
 
-
     attributes:
+
       user:
         user_name: ユーザー名
         height: 身長
         email: メールアドレス
         sex: 性別
 
-      category:
-        category_name: カテゴリー名
-
       post_header:
         image: 画像
         comment: 投稿内容
-        
+        category:
+
+      post_header/post_details:
+        #モデル名
+        category: カテゴリー
+
       post_detail:
         size: サイズ
+        category:
+          # required: "The category must be specified."
 
 
   views:

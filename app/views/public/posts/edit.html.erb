@@ -5,6 +5,17 @@
     <div class="col">
       <div class="mb-3">
         <%= form_with model: @post, url: post_path(@post.id), method: :patch do |f| %>
+
+            <% if @post.errors.any? %>
+              <div class="text-center" style="color: red">
+                <%= @post.errors.count %>件のエラーが発生しました
+              </div>
+              <ul style="color: red">
+                <% @post.errors.full_messages.each do |message| %>
+                  <li>※<%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
           <p class="mb-3 mt-4">
             <%= f.file_field :image, accept: "image/*" %>
           </p>
