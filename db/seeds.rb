@@ -9,16 +9,3 @@ Admin.create!(
    email: 'Admin@111',
    password: '111111',
 )
-
-# User.create!(
-#    email: 'ccc@vvv',
-#    password: '111111',
-#    user_name: 'マロン',
-#    height: '153',
-#    sex: '男性'
-# )
-
-
-
-
-
