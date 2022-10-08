@@ -1,4 +1,4 @@
-class HashtagsController < ApplicationController
+class Public::HashtagsController < ApplicationController
   include HashtagMethods
 
   def index
