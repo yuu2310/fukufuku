@@ -19,7 +19,6 @@ ja:
       post_header:
         image: 画像
         comment: 投稿内容
-        category:
 
       post_header/post_details:
         #モデル名
@@ -27,7 +26,6 @@ ja:
 
       post_detail:
         size: サイズ
-        category:
 
   views:
     pagination:
