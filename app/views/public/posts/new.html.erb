@@ -26,8 +26,14 @@
             <%= pd.label :type_id, @category_list[pd.index][:title] %>
             <div>
               <%= pd.collection_select :category_id, @category_list[pd.index][:obj], :id, :category_name, { prompt: "--選択してください--" }  %>
-              <% if pd.index != 4 && pd.index != 5 %>
+              <% if pd.index != 3 && pd.index != 4 && pd.index != 5 %>
               <%= pd.select :size, [["S", "S"], ["M", "M"], ["L", "L"], ["XL", "XL"]], include_blank: "--サイズを選択して下さい--", size: 30 %>
+              <% end %>
+              <% if pd.index == 3 %>
+                <%= pd.select :size,  [["24cm", "24cm"], ["24.5cm", "24.5cm"], ["25cm", "25cm"],
+                ["25.5cm", "25.5cm"], ["26cm", "26cm"], ["26.5cm", "26.5cm"],
+                ["27cm", "27cm"], ["27.5cm", "27.5cm"], ["28cm", "28cm"], ["28.5cm", "28.5cm"]],
+                include_blank: "--サイズを選択して下さい--", size: 30 %>
               <% end %>
             </div>
           <%#= f.collection_select :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名, include_blank: "選択して下さい" %>
