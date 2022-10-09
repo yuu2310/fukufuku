@@ -1,5 +1,6 @@
 ja:
   activerecord:
+
     models: #モデル名
       user: ユーザー
       category: カテゴリー
@@ -13,6 +14,7 @@ ja:
         height: 身長
         email: メールアドレス
         sex: 性別
+        password: パスワード
 
       post_header:
         image: 画像

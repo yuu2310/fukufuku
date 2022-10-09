@@ -1,7 +1,7 @@
 <%= render 'public/nav' %>
   <div class="container">
     <h2 class="mt-5 text-center text-success">ユーザ登録</h2>
-    
+
     <div style="color: red;">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "public/shared/error_messages", resource: resource %>
