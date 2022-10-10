@@ -308,5 +308,3 @@
 #    category_name: '--',
 #    type_id: 6
 # )
-
-
