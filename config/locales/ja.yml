@@ -24,9 +24,8 @@ ja:
         category_name: カテゴリー名
 
       type:
-        categories:
-          type_id: ジャンル
-          name: ジャンル
+        type: ジャンル
+        name: ジャンル
 
 
       post_header/post_details:
