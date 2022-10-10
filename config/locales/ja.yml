@@ -21,12 +21,8 @@ ja:
         comment: 投稿内容
 
       category:
-        category_name: カテゴリー名
-
-      type:
         type: ジャンル
-        name: ジャンル
-
+        category_name: カテゴリー名
 
       post_header/post_details:
         #モデル名
