@@ -6,7 +6,7 @@ ja:
       category: カテゴリー
       post_header: 投稿
       post_detail: 投稿詳細
-      type: タイプ
+      type: ジャンル
 
     attributes:
       user:
@@ -19,6 +19,15 @@ ja:
       post_header:
         image: 画像
         comment: 投稿内容
+
+      category:
+        category_name: カテゴリー名
+
+      type:
+        categories:
+          type_id: ジャンル
+          name: ジャンル
+
 
       post_header/post_details:
         #モデル名
