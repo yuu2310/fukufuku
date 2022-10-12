@@ -309,25 +309,25 @@
 #    type_id: 6
 # )
 
-5.times do |n|
-    User.create!(
-      email: "test#{n + 1}@test.com",
-      user_name: "テスト#{n + 1}",
-      password: 111111,
-      height:  160 + "#{n + 1}".to_i,
-      sex: "女性"
-    )
-  end
+# 5.times do |n|
+#     User.create!(
+#       email: "test#{n + 1}@test.com",
+#       user_name: "テスト#{n + 1}",
+#       password: 111111,
+#       height:  160 + "#{n + 1}".to_i,
+#       sex: "女性"
+#     )
+#   end
 
-5.times do |n|
-    User.create!(
-      email: "examination#{n + 1}@examination.com",
-      user_name: "テスト#{n + 6}",
-      password: 111111,
-      height:  170 + "#{n + 1}".to_i,
-      sex: "男性"
-    )
-  end
+# 5.times do |n|
+#     User.create!(
+#       email: "examination#{n + 1}@examination.com",
+#       user_name: "テスト#{n + 6}",
+#       password: 111111,
+#       height:  170 + "#{n + 1}".to_i,
+#       sex: "男性"
+#     )
+#   end
 
 # unless User.exists?(email: 'aaa@aaa')
 #     User.create!(

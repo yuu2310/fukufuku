@@ -54,7 +54,11 @@
         <p>検索結果がありませんでした</p>
       <% end %>
     </div>
-      <%= paginate @posts %>
+    <div class="row">
+      <div class="col-12 offset-6">
+        <%= paginate @posts %>
+      </div>
+    </div>
   </div>
     <!--失敗したコード-->
     <!--<%#= post.post_details.size %>-->
