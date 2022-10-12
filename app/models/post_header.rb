@@ -8,7 +8,7 @@ class PostHeader < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_details, dependent: :destroy
-  has_many :categoires, through: :post_details
+  has_many :categories, through: :post_details
   has_many :post_comments, dependent: :destroy
   has_many :post_hash_tags, dependent: :destroy
   has_many :hash_tags, through: :post_hash_tags, dependent: :destroy

@@ -308,3 +308,98 @@
 #    category_name: '--',
 #    type_id: 6
 # )
+
+5.times do |n|
+    User.create!(
+      email: "test#{n + 1}@test.com",
+      user_name: "テスト#{n + 1}",
+      password: 111111,
+      height:  160 + "#{n + 1}".to_i,
+      sex: "女性"
+    )
+  end
+
+5.times do |n|
+    User.create!(
+      email: "examination#{n + 1}@examination.com",
+      user_name: "テスト#{n + 6}",
+      password: 111111,
+      height:  170 + "#{n + 1}".to_i,
+      sex: "男性"
+    )
+  end
+
+# unless User.exists?(email: 'aaa@aaa')
+#     User.create!(
+#         email: 'aaa@aaa',
+#         password: 111111,
+#         user_name: 'A',
+#         height: 150,
+#         sex: '女性'
+#     )
+# end
+
+# unless User.exists?(email: 'test@example.com')
+#     User.create!(
+#         email: 'test@example.com',
+#         password: 111111,
+#         user_name: 'B',
+#         height: 160,
+#         sex: '女性'
+#     )
+# end
+
+
+
+# post_header = PostHeader.new
+# post_header.user = User.find_by(email: 'test@example.com')
+# post_header.image = ActiveStorage::Blob.create_and_upload!(io:File.open('./app/assets/images/no_user.png'), filename:'no_user')
+# post_header.comment = "コメント"
+
+# category = Category.new
+# category.category_name = "Tシャツ/カットソー"
+# category.type = Type.find(1)
+# category.save
+
+# category = Category.new
+# category.category_name = "--"
+# category.type = Type.find(2)
+# category.save
+
+# category = Category.new
+# category.category_name = "スラックス"
+# category.type = Type.find(3)
+# category.save
+
+# category = Category.new
+# category.category_name = "スニーカー"
+# category.type = Type.find(4)
+# category.save
+
+# category = Category.new
+# category.category_name = "--"
+# category.type = Type.find(5)
+# category.save
+
+# category = Category.new
+# category.category_name = "--"
+# category.type = Type.find(6)
+# category.save
+
+# detail = PostDetail.new
+# detail.category = category
+# detail.post_header = post_header
+# post_header.save
+# detail.save
+
+# detail = PostDetail.new
+# detail.category = category
+# detail.post_header = post_header
+# post_header.save
+# detail.save
+
+# detail = PostDetail.new
+# detail.category = category
+# detail.post_header = post_header
+# post_header.save
+# detail.save
