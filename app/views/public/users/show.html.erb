@@ -3,7 +3,7 @@
     <h2 class="mt-5 mb-5"><%= @user.user_name %>さんのマイページ</h2>
     <div class="row">
       <div class="col-md-4">
-        <%= image_tag @user.get_profile_image("200x200") %>
+        <%= image_tag @user.get_profile_image("200x200"), class:"profile_image" %>
         <h5 class="mt-3">ユーザー名</h5>
         <%= @user.user_name %>
         <p class=text_small>
