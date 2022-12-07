@@ -28,7 +28,7 @@
             <%= render_with_hashtags(post.comment) %>
           <p>
           <%= link_to user_path(post.user_id) do %>
-            <p><%= image_tag post.user.get_profile_image("80x80") %> <%= post.user.user_name %></p>
+            <p><%= image_tag post.user.get_profile_image("80x80"), class:"profile_image" %> <%= post.user.user_name %></p>
           <% end %>
           <p>投稿日:    <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
         </div>

@@ -39,6 +39,22 @@ ul {
   margin: auto;
 }
 
+.border {
+  border-radius: 7px;
+}
+
+.profile {
+  width: 200px;
+  text-align: center;
+  transform: scale(1.2, 1.2);
+  background-color: rgba(152, 251, 152, 0.6);
+}
+
 .profile_image {
   border-radius: 7px;
+}
+
+.user_information {
+  transform: translate(60px);
+  margin-bottom: 20px;
 }
