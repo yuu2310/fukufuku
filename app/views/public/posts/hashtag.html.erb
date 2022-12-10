@@ -1,6 +1,6 @@
 <%= render 'public/nav' %>
   <div class="container mt-5">
-    <h2>ハッシュタグ #<%= @tag.name %></h2>
+    <h2 class="hashtag">ハッシュタグ #<%= @tag.name %></h2>
     <div class="row">
       <% @posts.each do |post| %>
         <div class="col-4 mt-5 border">
